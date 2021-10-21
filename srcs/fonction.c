@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fonction.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrochet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 18:08:17 by mrochet           #+#    #+#             */
-/*   Updated: 2021/10/20 18:19:36 by mrochet          ###   ########lyon.fr   */
+/*   Updated: 2021/10/21 16:11:37 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void fonction_pwd(t_shell *shell)
 void fonction_echo(t_shell *shell)
 {
 	(void)shell;
-	printf("act_env\n");
+	printf("act_echo\n");
 }
 
 void fonction_cd(t_shell *shell)

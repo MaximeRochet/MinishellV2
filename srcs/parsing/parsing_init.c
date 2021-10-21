@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 11:50:00 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/21 13:23:14 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/10/21 16:00:33 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void    init_env(char **env, t_shell *shell)
 					, ft_substr(env[i], 0, ft_strchr(env[i], '=') - env[i])));
 		i++;
 	}
-
-	ft_get_path(shell, "PATH");
     return ;
 }
 
@@ -76,7 +74,11 @@ int parsing(t_shell *shell)
 	str_split = ft_split(shell->str_cmd, '\200');
 	ft_split_arg_str(shell, str_split);
 	ft_remove_quote_cmd(shell);
-//	ft_parsing_quote_cmd(shell);
+	ft_path_cmd(shell);
+	if (shell->list_cmd->cmd ==  NULL)
+		ft_check_exist_path(shell);
+	dprintf(1,"\n_________NV MAILLON AVEC PATH________\n");
+	print_list_cmd(shell->list_cmd);
 
 	return(0);
 }

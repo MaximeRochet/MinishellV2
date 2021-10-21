@@ -8,7 +8,7 @@ enleve les quots ok
 remplacer les $
 (separer en 2 la ligne de commande (dernier  > ou >> et arg) et (cmd et arg))
 split pipe
-recherche commande et verif chemin commande
+recherche commande et verif chemin commande ok
 si pas de commande est ce que > devant
 liste chainé
 ______________
