@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:12:47 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/10/20 17:20:23 by mrochet          ###   ########lyon.fr   */
+/*   Updated: 2021/10/21 13:23:58 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,10 @@ char	**ft_split_pipe_str(char *str);
 void	ft_split_arg_str(t_shell *shell, char **str_split);
 
 	// PARSING_CMD
+
+void	ft_remove_quote_cmd(t_shell *shell);
+
+	
 void	ft_parsing_cmd(t_shell *shell);
 void 	ft_init_tab_var(t_shell *shell);
 

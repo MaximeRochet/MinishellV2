@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:52:00 by mrochet           #+#    #+#             */
-/*   Updated: 2021/10/20 18:27:31 by mrochet          ###   ########lyon.fr   */
+/*   Updated: 2021/10/21 13:24:32 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void print_list_cmd(t_list_cmd *list_cmd)
  		while(tmp)
  		{
 			dprintf(1, "____LIST MAILLON %d_____\n", y);
- 			dprintf(1, "cmd = %s\npipe = %d \n", (*tmp).cmd, (*tmp).pipe);
+ 			dprintf(1, "cmd = |%s|\npipe = %d \n", (*tmp).cmd, (*tmp).pipe);
 			i =0;
  			while (tmp->arg[i])
 			{
-				dprintf(1, "arg[%d] = %s\n", i, tmp->arg[i]);
+				dprintf(1, "arg[%d] = |%s|\n", i, tmp->arg[i]);
 				i++;
 			}
 			tmp = tmp->next;

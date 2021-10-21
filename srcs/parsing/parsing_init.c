@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrochet <mrochet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 11:50:00 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/21 12:56:17 by mrochet          ###   ########.fr       */
+/*   Updated: 2021/10/21 13:23:14 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int parsing(t_shell *shell)
 	shell->str_cmd = ft_replace_pipe_str(shell->str_cmd, '|');
 	str_split = ft_split(shell->str_cmd, '\200');
 	ft_split_arg_str(shell, str_split);
-	
+	ft_remove_quote_cmd(shell);
 //	ft_parsing_quote_cmd(shell);
 
 	return(0);
