@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:29:35 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/19 16:30:53 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/10/21 14:43:44 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,64 @@
 #include "../includes/minishell.h"
 
 //ENLEVER LES QUOTES DE LA COMMANDES 
-// void	ft_remove_quote_cmd(t_shell *shell)
-// {
-// 	t_list_cmd *tmp_list;
-// 	int i;
-// 	int y;
-// 	char *tmp_str;
+void	ft_remove_quote_cmd(t_shell *shell)
+{
+	t_list_cmd *tmp_list_cmd;
+	int i;
+	int y;
+	int j;
+	int a;
+	char *tmp_str;
+	int quote;
 
-// 	y = 0;
-// 	tmp_list = shell->list_cmd;
-// 	while (tmp_list)
-// 	{
-// 		i = 0;
-// 		tmp_str = tmp_list->arg[0];
-// 		while (tmp_str[i])
-// 		{
-// 			if (tmp_str[i]== '\'' ||tmp_str[i]== '\"' )
-// 			{
-// 				y = i;
-// 				while (tmp_str[y])
-// 				{
-// 					tmp_str[y] = tmp_str[y + 1];
-// 					y++;
-// 				}
-// 				tmp_str[y] = '\0';
-// 			}
-// 			i++;
-// 		}
-// 		tmp_list->cmd = tmp_str;
-// 		tmp_list = tmp_list->next;
-// 	}
+	y = 0;
+	j = 0;
+	a = 0;
+	quote = 0;
+	tmp_list_cmd = shell->list_cmd;
 
-// 	dprintf(1,"_________NV MAILLON AVEC PATH________\n");
-// }
+	while (tmp_list_cmd)
+	{
+		i = 0;
+		while (tmp_list_cmd->arg[i])
+		{
+			tmp_str = tmp_list_cmd->arg[i];
+			y = 0;
+			while (tmp_str[y])
+			{
+				if ((tmp_str[y] == '\'' || tmp_str[y] == '\"') && quote == 0)
+				{
+					quote = 1;
+					j = y;
+					y++;
+				}
+				if (quote == 1 && tmp_str[j] == tmp_str[y])
+				{
+					y--;
+					a = y;
+					while (tmp_str[j])
+					{
+						tmp_str[j] = tmp_str[j + 1];
+						j++;
+						quote = 0;
+					}
+					while (tmp_str[y++])
+					{
+						tmp_str[y - 1] = tmp_str[y];
+						quote = 0;
+					} 
+					y = a - 1;
+				}
+				y++;
+			}
+			i++;
+		}
+		tmp_list_cmd = tmp_list_cmd->next;
+	}
+
+	dprintf(1,"_________NV MAILLON AVEC PATH________\n");
+	print_list_cmd(shell->list_cmd);
+}
 
 
 

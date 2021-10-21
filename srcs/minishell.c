@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrochet <mrochet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:07:22 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/10/21 13:01:58 by mrochet          ###   ########.fr       */
+/*   Updated: 2021/10/21 13:18:26 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int ac, char **av, char **env)
 			add_history(shell->str_cmd);
 			parsing(shell);
 			execution(shell);
-			shell->list_cmd=NULL;
+			shell->list_cmd = NULL;
 		//	ft_format_struct(shell);
 			//	free(shell.str_cmd);
 		}
