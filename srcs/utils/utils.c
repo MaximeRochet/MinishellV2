@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 17:09:20 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/10/20 17:04:57 by mrochet          ###   ########lyon.fr   */
+/*   Updated: 2021/10/21 15:57:14 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,38 +54,33 @@ char	*ft_strstr(char *str, char *to_find)
 	return (0);
 }
 
-void	ft_get_path(t_shell *shell, char *name)
-{
-	t_list_env *tmp_path;
-	char *tmp;
-	int i;
-	int y;
+// void	ft_get_path(t_shell *shell, char *name)
+// {
+// 	t_list_env *tmp_path;
+// 	char *tmp;
+// 	int i;
+// 	int y;
 	
-	i = 0;
-	y = 0;
-	tmp_path = shell->env; 
-	while (tmp_path)
-	{
-		if (ft_strstr(tmp_path->name, name))
-		{
-			tmp = tmp_path->content;
-			shell->path = ft_split(tmp, ':');
-			// while (shell->path[i])
-			// {
-			// //	printf("path[%d]=%s\n", i, shell->path[i]);
-			// 	i++;
-			//}
-		}
-		tmp_path = tmp_path->next;
-	}
-	while (shell->path[i])
-	{
-		y = ft_strlen(shell->path[i]);
-		shell->path[i][y] = '/';
-		i++;
-	}
-	return ;
-}
+// 	i = 0;
+// 	y = 0;
+// 	tmp_path = shell->env; 
+// 	while (tmp_path)
+// 	{
+// 		if (ft_strstr(tmp_path->name, name))
+// 		{
+// 			tmp = tmp_path->content;
+// 			shell->path = ft_split(tmp, ':');
+// 		}
+// 		tmp_path = tmp_path->next;
+// 	}
+// 	while (shell->path[i])
+// 	{
+// 		y = ft_strlen(shell->path[i]);
+// 		shell->path[i][y] = '/';
+// 		i++;
+// 	}
+// 	return ;
+// }
 
 char	*ft_get_env(t_shell *shell, char *name)
 {

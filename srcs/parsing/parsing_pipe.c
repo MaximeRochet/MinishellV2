@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrochet <mrochet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:28:19 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/21 13:00:50 by mrochet          ###   ########.fr       */
+/*   Updated: 2021/10/22 11:14:02 by cerisemasse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ char	*ft_replace_pipe_str(char *str, char c)
 				i_str = str[i];
 			}
 			else if (quote == 1 && i_str == str[i])
-			{
 				quote = 0;
-			}
 		}
 		else if (quote == 0 && str[i] == c)
 			str[i] = '\200';

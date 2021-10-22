@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:12:47 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/10/21 13:23:58 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/10/21 16:01:14 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,6 @@ typedef struct s_list_cmd
 
 typedef struct s_shell
 {
-//	int				*tab_$;
-    char            **path;
-    char            *path_cmd; //wtf ???
     char            *str_cmd;
 	char			*prompt;
 	int				quit;
@@ -77,7 +74,7 @@ void	ft_add_back_env(t_list_env **alst, t_list_env *new);
 t_list_env	*ft_lstnew_env(void *content, void *name);
 
 // UTILS 
-void	ft_get_path(t_shell *shell, char *c);
+//void	ft_get_path(t_shell *shell, char *c);
 char	*ft_strstr(char *str, char *to_find);
 void	print_list_cmd(t_list_cmd *list);
 void	print_shell(t_shell *shell);
@@ -110,12 +107,8 @@ void	ft_split_arg_str(t_shell *shell, char **str_split);
 	// PARSING_CMD
 
 void	ft_remove_quote_cmd(t_shell *shell);
-
-	
-void	ft_parsing_cmd(t_shell *shell);
-void 	ft_init_tab_var(t_shell *shell);
-
-
+void	ft_path_cmd(t_shell *shell);
+void	ft_check_exist_path(t_shell *shell);
 
 
 //FONCTION PRINCIPALES
