@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:12:47 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/10/21 16:01:14 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/10/22 15:16:57 by cerisemasse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct s_list_cmd
 	char					*cmd;
     char                	**arg;
     int                 	pipe;
+	char **input; // <
+	char **output; // >
  // int                 	*fd[4];
 	struct s_list_cmd		*next;
     struct s_list_cmd		*prev;
@@ -110,6 +112,11 @@ void	ft_remove_quote_cmd(t_shell *shell);
 void	ft_path_cmd(t_shell *shell);
 void	ft_check_exist_path(t_shell *shell);
 
+
+
+		// PARSING_REDIRECTION
+
+void    ft_fill_redir(t_shell *shell);
 
 //FONCTION PRINCIPALES
 void	recup_prompt(t_shell *shell);

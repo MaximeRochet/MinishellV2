@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_struct.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:52:00 by mrochet           #+#    #+#             */
-/*   Updated: 2021/10/21 13:24:32 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/10/22 15:15:18 by cerisemasse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,24 @@ void print_list_cmd(t_list_cmd *list_cmd)
 			{
 				dprintf(1, "arg[%d] = |%s|\n", i, tmp->arg[i]);
 				i++;
+			}
+			i = 0;
+			if (tmp->input)
+			{
+				while (tmp->input[i])
+				{
+					dprintf(1, "input[%d] = |%s|\n", i, tmp->input[i]);
+					i++;
+				}
+			}
+			i = 0;
+			if (tmp->output)
+			{
+				while (tmp->output[i])
+				{
+					dprintf(1, "output[%d] = |%s|\n", i, tmp->output[i]);
+					i++;
+				}
 			}
 			tmp = tmp->next;
 			y++;
