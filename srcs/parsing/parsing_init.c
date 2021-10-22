@@ -6,7 +6,7 @@
 /*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 11:50:00 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/22 11:13:41 by cerisemasse      ###   ########.fr       */
+/*   Updated: 2021/10/22 15:47:58 by cerisemasse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,10 @@ int parsing(t_shell *shell)
 	shell->str_cmd = ft_replace_pipe_str(shell->str_cmd, '|');
 	str_split = ft_split(shell->str_cmd, '\200');
 	ft_split_arg_str(shell, str_split);
+	
+	ft_fill_redir(shell);		
+	
+	dprintf(1,"\n_________NV MAILLON SANS QUOTE________\n");
 	ft_remove_quote_cmd(shell);
 	ft_path_cmd(shell);
 	if (shell->list_cmd->cmd ==  NULL)
