@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:19:47 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/19 17:22:07 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/10/22 11:14:36 by cerisemasse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ char	*ft_delete_var(int start, int end, t_shell *shell)
 {
 	char *str;
 	int i;
-//	char *tmp;
 
 	str = (char *)calloc(sizeof(char), start + ft_strlen(ft_substr(shell->str_cmd, end, ft_strlen(shell->str_cmd))) + 1);
 	// dprintf(1, "start=|%d|, str[start]=|%c|\n", start, str[start]);

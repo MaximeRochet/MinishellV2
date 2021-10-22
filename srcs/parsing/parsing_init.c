@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 11:50:00 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/21 16:00:33 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/10/22 11:13:41 by cerisemasse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int parsing(t_shell *shell)
 		ft_check_exist_path(shell);
 	dprintf(1,"\n_________NV MAILLON AVEC PATH________\n");
 	print_list_cmd(shell->list_cmd);
-
 	return(0);
 }
 
