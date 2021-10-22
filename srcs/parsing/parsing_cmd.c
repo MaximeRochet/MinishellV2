@@ -6,7 +6,7 @@
 /*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:29:35 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/22 11:11:34 by cerisemasse      ###   ########.fr       */
+/*   Updated: 2021/10/22 14:46:32 by cerisemasse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	ft_path_cmd_next(int i, char **tab_path, t_list_cmd	*tmp_str)
 		if (access(path_cmd, F_OK) == 0)
 		{
 			tmp_str->cmd = ft_strdup(path_cmd);
-			if (tmp_str->next == NULL)
+			if (tmp_str->next == NULL )
 					return ;
 				break ;
 		}
@@ -133,7 +133,7 @@ void	ft_path_cmd(t_shell *shell)
 	while (tmp_str)
 	{
 		i = 0;
-		while (tmp_str->arg[i])
+		while (tmp_str->arg[i] && tmp_str->cmd == NULL)
 		{
 			ft_path_cmd_next( i, tab_path, tmp_str);
 			i++;
