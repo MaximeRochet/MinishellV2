@@ -51,8 +51,6 @@ char	*ft_delete_var(int start, int end, t_shell *shell)
 	int i;
 
 	str = (char *)calloc(sizeof(char), start + ft_strlen(ft_substr(shell->str_cmd, end, ft_strlen(shell->str_cmd))) + 1);
-	// dprintf(1, "start=|%d|, str[start]=|%c|\n", start, str[start]);
-	// dprintf(1, "end=|%d|, str[end]=|%c|\n", end, str[end]);
 	i = 0;
 	while (i < start)
 	{
@@ -111,7 +109,6 @@ void ft_check_variable(t_shell *shell)
 	d_quote = 0;
 	str = shell->str_cmd;
 	quote = 0;
-	//print_shell(shell);
 	while (str[i])
 	{	
 		if(str[i] == '\"' && quote == 0)

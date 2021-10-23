@@ -57,7 +57,6 @@ int	ft_valide_quote_str(t_shell *shell)
 int parsing(t_shell *shell)
 {
 	char **str_split;
-
 	if (ft_valide_quote_str(shell) == 1)
 		return (-1);
 	ft_check_variable(shell);
@@ -65,16 +64,11 @@ int parsing(t_shell *shell)
 	str_split = ft_split(shell->str_cmd, '\200');
 	ft_split_arg_str(shell, str_split);
 	
-	ft_fill_redir(shell);		
+	//ft_fill_redir(shell);		
 	
-	dprintf(1,"\n_________NV MAILLON SANS QUOTE________\n");
 	ft_remove_quote_cmd(shell);
 	ft_path_cmd(shell);
 	if (shell->list_cmd->cmd ==  NULL)
 		ft_check_exist_path(shell);
-	dprintf(1,"\n_________NV MAILLON AVEC PATH________\n");
-	print_list_cmd(shell->list_cmd);
 	return(0);
 }
-
-
