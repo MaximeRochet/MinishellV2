@@ -32,7 +32,7 @@ void print_list_cmd(t_list_cmd *list_cmd)
 				i++;
 			}
 			i = 0;
-			if (tmp->input)
+	/*		if (tmp->input)
 			{
 				while (tmp->input[i])
 				{
@@ -49,6 +49,7 @@ void print_list_cmd(t_list_cmd *list_cmd)
 					i++;
 				}
 			}
+	*/
 			tmp = tmp->next;
 			y++;
 			dprintf(1, "_________________\n");

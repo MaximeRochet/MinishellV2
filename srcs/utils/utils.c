@@ -86,11 +86,7 @@ char	*ft_get_env(t_shell *shell, char *name)
 {
 	t_list_env *tmp_env;
 	char *tmp;
-	int i;
-	int y;
 	
-	i = 0;
-	y = 0;
 	tmp = NULL;
 	tmp_env = shell->env;
 	while (tmp_env)

@@ -72,14 +72,12 @@ char	*ft_delete_var(int start, int end, t_shell *shell)
 
 void ft_replace_var(t_shell *shell, int i)
 {
-	t_list_env *env;
 	char *str;
 	char *var;
 	int y;
 	int count;
 
 	str = ft_strdup(shell->str_cmd);
-	env = shell->env;
 	var = NULL;
 	count = 0;
 	i = i + 1;
@@ -99,7 +97,6 @@ void ft_replace_var(t_shell *shell, int i)
 	}
 	str = ft_strdup(ft_delete_var(y - 1, i, shell));
 	str = ft_strdup(ft_paste_name_var(y - 1, var ,shell));
-//	printf("coucou\n");
 	shell->str_cmd = str;
 }
 

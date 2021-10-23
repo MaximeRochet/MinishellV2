@@ -30,8 +30,8 @@
 
 typedef struct s_list_env
 {
-	void			*content;
-    void			*name;
+	char			*content;
+    	char			*name;
 	struct s_list_env	*next;
 
 }				t_list_env;
