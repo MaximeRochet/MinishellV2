@@ -40,8 +40,8 @@ int	main(int ac, char **av, char **env)
 			parsing(shell);
 			execution(shell);
 			shell->list_cmd = NULL;
-		//	ft_format_struct(shell);
-			//	free(shell.str_cmd);
+			//ft_format_struct(shell);
+			//free(shell.str_cmd);
 		}
 	}
 	dprintf(1, "exit");
