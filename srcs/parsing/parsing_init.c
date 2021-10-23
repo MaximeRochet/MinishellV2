@@ -26,23 +26,15 @@ void    init_env(char **env, t_shell *shell)
     return ;
 }
 
-// //FORMATER LA STRUCTURE AVEC LE ENV
-// void    ft_format_struct(t_shell *shell)
-// {		
-//    shell = ft_calloc(sizeof(t_shell), 1);
-// }
-
 int	ft_valide_quote_str(t_shell *shell)
 {
 	int	i;
 	char i_str;
 	char *str;
 	int quote = 0;
-	int y;
 
 	i = 0;
 	i_str = 0;
-	y = 0;
 	str = ft_strdup(shell->str_cmd);
 	while (str[i])
 	{
@@ -52,7 +44,6 @@ int	ft_valide_quote_str(t_shell *shell)
 			{
 				quote = 1;
 				i_str = str[i];
-				y = i;
 			}
 			else if (quote == 1 && i_str == str[i])
 				quote = 0;
