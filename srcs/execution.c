@@ -23,10 +23,12 @@ int find_function(t_shell *shell)
 	char 	*cmd;
 
 	cmd = shell->list_cmd->arg[0];
-
 	i = 0;
-	while (ft_strncmp(tab_f[i].name, cmd, 3) != 0 &&  ft_strncmp(tab_f[i].name, "execve", 3) != 0 )
+	while (ft_strncmp(tab_f[i].name, cmd, ft_strlen(tab_f[i].name)) != 0 &&
+		       	ft_strncmp(tab_f[i].name, "execve", ft_strlen(tab_f[i].name)) != 0)
+	{
 		i++;
+	}
 	tab_f[i].fct(shell);
 	return(0);
 }
