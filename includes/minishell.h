@@ -42,9 +42,8 @@ typedef struct s_list_cmd
 	char			*cmd;
 	char                	**arg;
 	int                 	pipe;
-	char **input; // <
-	char **output; // >
-	// int                 	*fd[4];
+	int			redir_in;
+	int			redir_out;
 	struct s_list_cmd	*next;
 	struct s_list_cmd	*prev;
 }				t_list_cmd;
@@ -52,10 +51,12 @@ typedef struct s_list_cmd
 typedef struct s_shell
 {
 	char            *str_cmd;
-	char			*prompt;
-	int				quit;
+	char		*prompt;
+	char		*mssg_erreur;
+	int		quit;
+	char		**tab_env;	
 
-	t_list_cmd		*list_cmd;
+		t_list_cmd		*list_cmd;
 	t_list_env      *env;
 }					t_shell;
 
@@ -78,12 +79,12 @@ t_list_env	*ft_lstnew_env(void *content, void *name);
 char	*ft_strstr(char *str, char *to_find);
 void	print_list_cmd(t_list_cmd *list);
 void	print_shell(t_shell *shell);
-int		char_is_in(char *str, char c);
+int	char_is_in(char *str, char c);
 int	ft_index_strchr(const char *s, int c);
-
-
 void	print_env(t_list_env *lst);
 char	*ft_get_env(t_shell *shell, char *name);
+char	*find_redir(char *str);
+char	*add_char(char *str, int space, char c);
 
 // PARSING
 // PARSING_INIT
@@ -110,10 +111,7 @@ void	ft_remove_quote_cmd(t_shell *shell);
 void	ft_path_cmd(t_shell *shell);
 void	ft_check_exist_path(t_shell *shell);
 
-
-
 // PARSING_REDIRECTION
-
 void    ft_fill_redir(t_shell *shell);
 
 //FONCTION PRINCIPALES

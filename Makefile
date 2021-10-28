@@ -29,7 +29,7 @@ NAME = minishell
 SRCS_NAME = liste.c minishell.c \
 			print_struct.c \
 			recup_prompt.c execution.c \
-			fonction.c \
+			fonction.c space.c \
 			$(SRCS_UTILS) $(SRCS_PARSING)
 
 SRCS_UTILS = $(addprefix $(UTILS_PATH)/, utils.c)
