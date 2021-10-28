@@ -19,10 +19,9 @@ t_list_cmd	*ft_new_cmd(char **arg)
 	list = ft_calloc(sizeof(t_list_cmd), 1);
 	if (!list)
 		return (0);
-    list->arg = arg;
-    list->pipe = 0;
-	list->input = NULL;
-    list->output = NULL;
+	list->arg = arg;
+	list->redir_in = 0;
+	list->redir_out =0;
 	//list->fd = fd;
 	list->next = NULL;
 	return (list);

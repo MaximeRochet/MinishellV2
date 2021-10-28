@@ -1,16 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/06 16:12:47 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/10/26 20:24:37 by mrochet          ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -44,9 +31,8 @@ typedef struct s_list_cmd
 	char			*cmd;
 	char                	**arg;
 	int                 	pipe;
-	char **input; // <
-	char **output; // >
-	// int                 	*fd[4];
+	int			redir_in;
+	int			redir_out;
 	struct s_list_cmd	*next;
 }				t_list_cmd;
 
@@ -58,6 +44,8 @@ typedef struct s_shell
 	int				**pipes;
 	int				*pids;
 	int				quit;
+	char		*mssg_erreur;
+	char		**tab_env;	
 
 	t_list_cmd		*list_cmd;
 	t_list_env      *env;
@@ -82,11 +70,14 @@ t_list_env	*ft_lstnew_env(void *content, void *name);
 char	*ft_strstr(char *str, char *to_find);
 void	print_list_cmd(t_list_cmd *list);
 void	print_shell(t_shell *shell);
-int		char_is_in(char *str, char c);
+int	char_is_in(char *str, char c);
 int	ft_index_strchr(const char *s, int c);
+
 
 void	print_env(t_list_env *lst);
 char	*ft_get_env(t_shell *shell, char *name);
+char	*find_redir(char *str);
+char	*add_char(char *str, int space, char c);
 
 // PARSING
 // PARSING_INIT

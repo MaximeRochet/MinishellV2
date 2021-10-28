@@ -36,7 +36,7 @@ int	main(int ac, char **av, char **env)
 		{	
 			add_history(shell->str_cmd);
 			parsing(shell);
-			print_list_cmd(shell->list_cmd);
+			//print_list_cmd(shell->list_cmd);
 			execution(shell);
 			shell->list_cmd = NULL;
 			//ft_format_struct(shell);

@@ -1,58 +1,62 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing_redirection.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/22 14:57:45 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/10/22 16:04:38 by cerisemasse      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/minishell.h"
+//securier i+un
+void	delete_line_tab(t_shell *shell,int i)
+{
+	char **tmp;
+	
+	tmp = shell->list_cmd->arg;
+	while(tmp[i + 2])
+	{
+		free(tmp[i]);
+		tmp[i] = tmp[i + 2];
+		tmp[i + 2] = NULL;
+		i++;
+	}
+	tmp[i] = NULL;
+}
 
+void	fill_in(t_shell *shell, int i)
+{
+	char **tmp;
+
+	tmp = shell->list_cmd->arg;
+	if (tmp[i][0] == '<' && tmp[i][0] == tmp[i][1])
+		shell->list_cmd->redir_in = 400;
+	else if(tmp[i][0] == '<')
+		shell->list_cmd->redir_in = 500;
+	delete_line_tab(shell, i);
+}
+
+void	fill_out(t_shell *shell, int i)
+{
+	char **tmp;
+	
+	tmp = shell->list_cmd->arg;
+	if (tmp[i][0] == '>' && tmp[i][0] == tmp[i][1])
+		shell->list_cmd->redir_out = 300;
+	else if(tmp[i][0] == '>')
+		shell->list_cmd->redir_out = 200;
+	delete_line_tab(shell, i);
+}
 
 void    ft_fill_redir(t_shell *shell)
 {
-    t_list_cmd *list;
-    int i;
-    int y;
-    char *str;
-    char *tmp_redi;
+	t_list_cmd *tmp;
+	int i;
 
-    list = shell->list_cmd;
-    i = 0;
-    while (list)
-    {
-        while (list->arg[i])
-        {
-            y = 0;
-            str = list->arg[i];
-            while (str[y])
-            {
-                printf("list->arg[%d] = |%s|\n", i, list->arg[i]);
-                if ((str[y] == '>' || str[y] == '<') && ft_strlen(list->arg[i]) == 1)
-                {
-                        tmp_redi = strdup(ft_strjoin(list->arg[i], list->arg[i + 1]));
-                }
-                else if ((str[y] == '>' || str[y] == '<') && ft_strlen(list->arg[i]) != 1 && ((str[y +1 ] != '>' && str[y + 1] != '<')))
-                    tmp_redi = strdup(list->arg[i]);
-                else if ((str[y] == '>' || str[y] == '<') && ft_strlen(list->arg[i]) == 2 && ((str[y +1 ] == '>' || str[y + 1] == '<')))
-                {
-
-                    printf("coucou\n");
-                    tmp_redi = strdup(ft_strjoin(list->arg[i], list->arg[i + 1]));
-                }
-                else if ((str[y] == '>' || str[y] == '<') && ft_strlen(list->arg[i]) != 1 && ((str[y +1 ] == '>' || str[y + 1] == '<')))
-                    tmp_redi = strdup(ft_strjoin(list->arg[i], list->arg[i + 1]));
-                y++;
-            }
-            i++;
-        }
-        list = list->next;
-    }
-    dprintf(1, "tmp_redi = |%s|\n", tmp_redi);
-    return ;
-    
+	tmp = shell->list_cmd;
+	while(shell->list_cmd)
+	{
+		i=-1;
+		while(shell->list_cmd->arg[++i])
+		{
+			if(shell->list_cmd->arg[i][0] == '>')
+				fill_out(shell, i);
+			else if(shell->list_cmd->arg[i][0] == '<')
+				fill_in(shell, i);
+		}
+		shell->list_cmd = shell->list_cmd->next;
+	}
+	shell->list_cmd = tmp;
+	print_list_cmd(shell->list_cmd);
 }
