@@ -6,7 +6,7 @@
 /*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:12:47 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/10/22 15:16:57 by cerisemasse      ###   ########.fr       */
+/*   Updated: 2021/10/26 20:24:37 by mrochet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 # include "../libft/libft.h"
 
 typedef struct s_list_env
@@ -46,13 +48,15 @@ typedef struct s_list_cmd
 	char **output; // >
 	// int                 	*fd[4];
 	struct s_list_cmd	*next;
-	struct s_list_cmd	*prev;
 }				t_list_cmd;
 
 typedef struct s_shell
 {
 	char            *str_cmd;
 	char			*prompt;
+	int				size_list_cmd;
+	int				**pipes;
+	int				*pids;
 	int				quit;
 
 	t_list_cmd		*list_cmd;
@@ -81,7 +85,6 @@ void	print_shell(t_shell *shell);
 int		char_is_in(char *str, char c);
 int	ft_index_strchr(const char *s, int c);
 
-
 void	print_env(t_list_env *lst);
 char	*ft_get_env(t_shell *shell, char *name);
 
@@ -98,22 +101,17 @@ void  	ft_replace_var(t_shell *shell, int i);
 char	*ft_delete_var(int start, int end, t_shell *shell);
 char	*ft_paste_name_var(int start,  char *var, t_shell *shell);
 
-
 // PARSING_PIPE
 char	*ft_replace_pipe_str(char *str, char c);
 char	**ft_split_pipe_str(char *str);
 void	ft_split_arg_str(t_shell *shell, char **str_split);
 
 // PARSING_CMD
-
 void	ft_remove_quote_cmd(t_shell *shell);
 void	ft_path_cmd(t_shell *shell);
 void	ft_check_exist_path(t_shell *shell);
 
-
-
 // PARSING_REDIRECTION
-
 void    ft_fill_redir(t_shell *shell);
 
 //FONCTION PRINCIPALES

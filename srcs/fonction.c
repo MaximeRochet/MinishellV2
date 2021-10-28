@@ -13,6 +13,7 @@ void fonction_env(t_shell *shell)
 		printf("%s=%s\n",tmp->name, tmp->content);
 		tmp=tmp->next;
 	}
+	exit(0);
 }
 
 void delete_env(t_shell *shell, char *name)
@@ -46,7 +47,6 @@ void fonction_export(t_shell *shell)
 	while(tmp->arg[i])
 	{
 		arg =  tmp->arg[i];
-		printf("%d\n",(char_is_in(arg, '=') && arg[0] != '='));
 		if(char_is_in(arg, '=') && arg[0] != '=')
 		{
 			delete_env(shell, ft_substr(arg, 0, ft_strchr(arg, '=') - arg));
@@ -55,6 +55,7 @@ void fonction_export(t_shell *shell)
 		}
 		i++;
 	}
+	exit(0);
 }
 
 void fonction_unset(t_shell *shell)
@@ -67,6 +68,7 @@ void fonction_unset(t_shell *shell)
 		return ;
 	while(shell->list_cmd->arg[++i])
 		delete_env(shell,shell->list_cmd->arg[i]);
+	exit(0);
 }
 
 void fonction_pwd(t_shell *shell)
@@ -79,6 +81,7 @@ void fonction_pwd(t_shell *shell)
 	buf = getcwd(NULL, 0);
 
 	printf("%s\n", buf);
+	exit(0);
 }
 
 void fonction_echo(t_shell *shell)
@@ -89,7 +92,6 @@ void fonction_echo(t_shell *shell)
 	if(shell->list_cmd->arg[i])
 	{
 		i += (ft_strncmp(shell->list_cmd->arg[i], "-n", 3) == 0);
-		printf("act_echo  %d \n", i);
 		while(shell->list_cmd->arg[i])
 		{
 			printf("%s",shell->list_cmd->arg[i]);
@@ -97,11 +99,12 @@ void fonction_echo(t_shell *shell)
 			if(shell->list_cmd->arg[i])
 				printf(" ");	
 		}
-	if(ft_strncmp(shell->list_cmd->arg[1], "-n", 3))
-		printf("\n");
+		if(ft_strncmp(shell->list_cmd->arg[1], "-n", 3))
+			printf("\n");
 	}
 	else
 		printf("\n");
+	exit(0);
 }
 
 void modif_env(t_shell *shell, char *name, char *new_content)
@@ -123,7 +126,7 @@ void fonction_cd(t_shell *shell)
 {
 	char **tmp;
 	char *old;
-	
+
 	printf("act_cd\n");
 	old = getcwd(NULL, 0);
 	tmp = shell->list_cmd->arg;
@@ -136,8 +139,9 @@ void fonction_cd(t_shell *shell)
 		chdir(tmp[1]);
 	modif_env(shell, "OLDPWD", old);
 	modif_env(shell, "PWD", getcwd(NULL, 0));
-	printf("old = %s\n", ft_get_env(shell, "OLDPWD"));
-	printf("pwd = %s\n", ft_get_env(shell, "PWD"));
+	//printf("old = %s\n", ft_get_env(shell, "OLDPWD"));
+	//printf("pwd = %s\n", ft_get_env(shell, "PWD"));
+	exit(0);
 
 }
 
@@ -159,7 +163,9 @@ void fonction_execve(t_shell *shell)
 	else
 	{
 		if (execve(tmp->cmd, tmp->arg, NULL) == -1)
-			dprintf(1, "EXIT FAILED\n");
-		//exit(0);
+			dprintf(1, "EXIT EXECVE FAILED\n");
+		exit(0);
 	}
+	exit(-1);
+
 }

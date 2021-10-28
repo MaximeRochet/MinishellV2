@@ -6,7 +6,7 @@
 /*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 11:50:00 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/22 15:47:58 by cerisemasse      ###   ########.fr       */
+/*   Updated: 2021/10/26 22:56:52 by mrochet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void    init_env(char **env, t_shell *shell)
 {
 	int i;
 
-    i = 0;
+	i = 0;
 	while (env[i])
 	{
 		ft_add_back_env(&shell->env, ft_lstnew_env(ft_strchr(env[i], '=') + 1\
 					, ft_substr(env[i], 0, ft_strchr(env[i], '=') - env[i])));
 		i++;
 	}
-    return ;
+	return ;
 }
 
 int	ft_valide_quote_str(t_shell *shell)
@@ -53,6 +53,20 @@ int	ft_valide_quote_str(t_shell *shell)
 	return (quote);
 }
 
+int lstsize(t_list_cmd *lst_cmd)
+{
+	t_list_cmd *tmp;
+	tmp = lst_cmd;
+	int i = 0;
+	while(tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
+}
+
+
 //INITIALISATION 
 int parsing(t_shell *shell)
 {
@@ -63,9 +77,9 @@ int parsing(t_shell *shell)
 	shell->str_cmd = ft_replace_pipe_str(shell->str_cmd, '|');
 	str_split = ft_split(shell->str_cmd, '\200');
 	ft_split_arg_str(shell, str_split);
-	
+	shell->size_list_cmd = lstsize(shell->list_cmd);
 	//ft_fill_redir(shell);		
-	
+
 	ft_remove_quote_cmd(shell);
 	ft_path_cmd(shell);
 	if (shell->list_cmd->cmd ==  NULL)

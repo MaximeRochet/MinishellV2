@@ -6,7 +6,7 @@
 /*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:21:16 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/10/22 15:13:56 by cerisemasse      ###   ########.fr       */
+/*   Updated: 2021/10/26 21:03:02 by mrochet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_list_cmd	*ft_new_cmd(char **arg)
     list->output = NULL;
 	//list->fd = fd;
 	list->next = NULL;
-    list->prev = NULL;
 	return (list);
 }
 
