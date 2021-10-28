@@ -60,14 +60,13 @@ int parsing(t_shell *shell)
 	char **str_split;
 
 	shell->str_cmd = find_redir(shell->str_cmd);
-	printf("%s\n", shell->str_cmd);
 	if (ft_valide_quote_str(shell) == 1)
 		return (-1);
 	ft_check_variable(shell);
 	shell->str_cmd = ft_replace_pipe_str(shell->str_cmd, '|');
 	str_split = ft_split(shell->str_cmd, '\200');
 	ft_split_arg_str(shell, str_split);
-	print_list_cmd(shell->list_cmd);
+	ft_fill_redir(shell);
 	ft_remove_quote_cmd(shell);
 	ft_path_cmd(shell);
 	if (shell->list_cmd->cmd ==  NULL)

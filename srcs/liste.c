@@ -24,7 +24,6 @@ t_list_cmd	*ft_new_cmd(char **arg)
 	list->redir_out =0;
 	//list->fd = fd;
 	list->next = NULL;
-	list->prev = NULL;
 	return (list);
 }
 
