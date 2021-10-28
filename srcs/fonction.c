@@ -149,7 +149,6 @@ void fonction_execve(t_shell *shell)
 
 	printf("act_execve\n");
 	(void)shell;
-	(void)shell;
 	tmp = shell->list_cmd;
 	pid = fork();
 	if (pid > 0) {
@@ -158,8 +157,8 @@ void fonction_execve(t_shell *shell)
 	} 
 	else
 	{
-		if (execve(tmp->cmd, tmp->arg, NULL) == -1)
+		if (execve(tmp->cmd, tmp->arg, shell->tab_env) == -1)
 			dprintf(1, "EXIT FAILED\n");
-		//exit(0);
+		exit(0);
 	}
 }

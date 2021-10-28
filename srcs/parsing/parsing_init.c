@@ -16,14 +16,15 @@ void    init_env(char **env, t_shell *shell)
 {
 	int i;
 
-    i = 0;
+	i = 0;
 	while (env[i])
 	{
 		ft_add_back_env(&shell->env, ft_lstnew_env(ft_strchr(env[i], '=') + 1\
 					, ft_substr(env[i], 0, ft_strchr(env[i], '=') - env[i])));
 		i++;
 	}
-    return ;
+	shell->tab_env = env;
+	return ;
 }
 
 int	ft_valide_quote_str(t_shell *shell)
@@ -57,15 +58,16 @@ int	ft_valide_quote_str(t_shell *shell)
 int parsing(t_shell *shell)
 {
 	char **str_split;
+
+	shell->str_cmd = find_redir(shell->str_cmd);
+	printf("%s\n", shell->str_cmd);
 	if (ft_valide_quote_str(shell) == 1)
 		return (-1);
 	ft_check_variable(shell);
 	shell->str_cmd = ft_replace_pipe_str(shell->str_cmd, '|');
 	str_split = ft_split(shell->str_cmd, '\200');
 	ft_split_arg_str(shell, str_split);
-	
-	//ft_fill_redir(shell);		
-	
+	print_list_cmd(shell->list_cmd);
 	ft_remove_quote_cmd(shell);
 	ft_path_cmd(shell);
 	if (shell->list_cmd->cmd ==  NULL)
