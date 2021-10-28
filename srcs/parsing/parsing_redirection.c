@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing_redirection.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/22 14:57:45 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/10/22 16:04:38 by cerisemasse      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/minishell.h"
 
-
+/*
 void    ft_fill_redir(t_shell *shell)
 {
     t_list_cmd *list;
@@ -56,3 +44,4 @@ void    ft_fill_redir(t_shell *shell)
     return ;
     
 }
+*/
