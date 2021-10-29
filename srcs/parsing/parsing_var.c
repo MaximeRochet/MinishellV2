@@ -51,8 +51,6 @@ char	*ft_delete_var(int start, int end, t_shell *shell)
 	int i;
 
 	str = (char *)calloc(sizeof(char), start + ft_strlen(ft_substr(shell->str_cmd, end, ft_strlen(shell->str_cmd))) + 1);
-	// dprintf(1, "start=|%d|, str[start]=|%c|\n", start, str[start]);
-	// dprintf(1, "end=|%d|, str[end]=|%c|\n", end, str[end]);
 	i = 0;
 	while (i < start)
 	{
@@ -72,14 +70,12 @@ char	*ft_delete_var(int start, int end, t_shell *shell)
 
 void ft_replace_var(t_shell *shell, int i)
 {
-	t_list_env *env;
 	char *str;
 	char *var;
 	int y;
 	int count;
 
 	str = ft_strdup(shell->str_cmd);
-	env = shell->env;
 	var = NULL;
 	count = 0;
 	i = i + 1;
@@ -99,7 +95,6 @@ void ft_replace_var(t_shell *shell, int i)
 	}
 	str = ft_strdup(ft_delete_var(y - 1, i, shell));
 	str = ft_strdup(ft_paste_name_var(y - 1, var ,shell));
-//	printf("coucou\n");
 	shell->str_cmd = str;
 }
 
@@ -114,7 +109,6 @@ void ft_check_variable(t_shell *shell)
 	d_quote = 0;
 	str = shell->str_cmd;
 	quote = 0;
-	//print_shell(shell);
 	while (str[i])
 	{	
 		if(str[i] == '\"' && quote == 0)

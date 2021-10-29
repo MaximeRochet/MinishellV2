@@ -139,7 +139,6 @@ void	ft_path_cmd(t_shell *shell)
 			i++;
 		}
 		tmp_str = tmp_str->next;
-		print_list_cmd(shell->list_cmd);
 	}
 	return ;
 }

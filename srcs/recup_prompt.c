@@ -46,11 +46,7 @@ void	recup_prompt(t_shell *shell)
 	char	*ret;
 	char	*user;
 	char	*folder;
-	int y;
-	int i;
 
-	y=-1;
-	i=-1;
 	user = shearch_in_env(shell->env, "USER");
 	folder = last_folder(shearch_in_env(shell->env, "PWD"));
 	ret = calloc(sizeof(char), ft_strlen(user) + ft_strlen(folder) + 4);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+         #
+#    By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 16:16:40 by cerisemasse       #+#    #+#              #
-#    Updated: 2021/10/19 16:35:55 by cmasse           ###   ########.fr        #
+#    Updated: 2021/10/22 14:58:13 by cerisemasse      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,11 +29,11 @@ NAME = minishell
 SRCS_NAME = liste.c minishell.c \
 			print_struct.c \
 			recup_prompt.c execution.c \
-			fonction.c \
+			fonction.c space.c \
 			$(SRCS_UTILS) $(SRCS_PARSING)
 
 SRCS_UTILS = $(addprefix $(UTILS_PATH)/, utils.c)
-SRCS_PARSING = $(addprefix $(PARSING_PATH)/, parsing_init.c parsing_var.c parsing_pipe.c parsing_cmd.c)
+SRCS_PARSING = $(addprefix $(PARSING_PATH)/, parsing_init.c parsing_var.c parsing_pipe.c parsing_cmd.c parsing_redirection.c)
 
 LIB_NAME = ./minishell.h 
 

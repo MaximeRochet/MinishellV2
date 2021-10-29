@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_struct.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:52:00 by mrochet           #+#    #+#             */
-/*   Updated: 2021/10/21 13:24:32 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/10/22 15:15:18 by cerisemasse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,25 @@ void print_list_cmd(t_list_cmd *list_cmd)
 	t_list_cmd *tmp;
 
 	tmp = list_cmd;
- 	if (tmp)
- 	{
- 		while(tmp)
- 		{
+	if (tmp)
+	{
+		while(tmp)
+		{
 			dprintf(1, "____LIST MAILLON %d_____\n", y);
- 			dprintf(1, "cmd = |%s|\npipe = %d \n", (*tmp).cmd, (*tmp).pipe);
+			dprintf(1, "cmd = |%s|\npipe = %d \n", (*tmp).cmd, (*tmp).pipe);
 			i =0;
- 			while (tmp->arg[i])
+			while (tmp->arg[i])
 			{
 				dprintf(1, "arg[%d] = |%s|\n", i, tmp->arg[i]);
 				i++;
 			}
+			dprintf(1, "redir_in |%d|\n", tmp->redir_in);
+			dprintf(1, "redir_out|%d|\n", tmp->redir_out);
 			tmp = tmp->next;
 			y++;
 			dprintf(1, "_________________\n");
- 		}
- 	}
+		}
+	}
 }
 
 void	print_shell(t_shell *shell)
@@ -58,7 +60,7 @@ void	print_shell(t_shell *shell)
 // 	t_list_env *n;
 
 // 	n = lst;
-	
+
 // 	dprintf(1, "____LIST SHELL____\n");
 // 	dprintf(1, "__ENV__\n");
 // 	while (n)
