@@ -6,7 +6,7 @@
 /*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:19:47 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/22 11:14:36 by cerisemasse      ###   ########.fr       */
+/*   Updated: 2021/10/30 14:49:08 by cerisemasse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_delete_var(int start, int end, t_shell *shell)
 	char *str;
 	int i;
 
-	str = (char *)calloc(sizeof(char), start + ft_strlen(ft_substr(shell->str_cmd, end, ft_strlen(shell->str_cmd))) + 1);
+	str = (char *)calloc(sizeof(char), start + ft_strlen(shell->str_cmd) - end);
 	i = 0;
 	while (i < start)
 	{
@@ -85,7 +85,7 @@ void ft_replace_var(t_shell *shell, int i)
 		i++;
 		count++;
 	}
-	var = (char *)calloc(sizeof(char),count);
+	
 	var = ft_strdup(ft_get_env(shell, ft_substr(str, y, count)));
 	if (!var)
 	{
@@ -117,7 +117,7 @@ void ft_check_variable(t_shell *shell)
 			quote = 1;
 		else if (str[i] == '\'')
 			quote = 0;
-		if (str[i] == '$' && quote == 0)
+		if (str[i] == '$' && quote == 0 && str[i + 1] != '?')
 		{
 			ft_replace_var(shell, i);
 			str = ft_strdup(shell->str_cmd);
