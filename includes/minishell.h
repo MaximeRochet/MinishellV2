@@ -108,7 +108,7 @@ void	ft_check_exist_path(t_shell *shell);
 void    ft_fill_redir(t_shell *shell);
 
 //FONCTION PRINCIPALES
-void	recup_prompt(t_shell *shell);
+char	*recup_prompt(void);
 char	*shearch_in_env(t_list_env *env, char *name);
 
 //EXECUTION
@@ -129,4 +129,10 @@ void fonction_pwd(t_shell *shell);
 void fonction_execve(t_shell *shell);
 void	ft_ret_values(t_shell *shell, int pid);
 
+
+
+
+
+
+void    ft_signal_handler(int sig);
 #endif

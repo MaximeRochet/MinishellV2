@@ -6,7 +6,7 @@
 #    By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 16:16:40 by cerisemasse       #+#    #+#              #
-#    Updated: 2021/10/22 14:58:13 by cerisemasse      ###   ########.fr        #
+#    Updated: 2021/10/30 16:20:21 by cerisemasse      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ NAME = minishell
 SRCS_NAME = liste.c minishell.c \
 			print_struct.c \
 			recup_prompt.c execution.c \
-			fonction.c space.c \
+			fonction.c space.c signal.c \
 			$(SRCS_UTILS) $(SRCS_PARSING)
 
 SRCS_UTILS = $(addprefix $(UTILS_PATH)/, utils.c)
