@@ -3,14 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 19:39:19 by mrochet           #+#    #+#             */
-/*   Updated: 2021/10/26 23:10:57 by mrochet          ###   ########lyon.fr   */
+/*   Updated: 2021/10/30 14:59:52 by cerisemasse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_replace_ret_values(t_shell *shell)
+{
+	int 	i;
+	int		j;
+	char	*ret;
+	char	*new_cmd;
+	char **tmp;
+
+	tmp = shell->list_cmd->arg;
+
+	i = 0;
+	while (tmp[i])
+	{
+		if (ft_strchr(tmp[i], '$'))
+		{
+			j = -1;
+			ret = ft_itoa(shell->ret_value);
+			new_cmd = ft_calloc(sizeof(char), ft_strlen(tmp[i]) + ft_strlen(ret) - 1);
+			while (tmp[i][++j] != '$')
+				new_cmd[j] = tmp[i][j];
+			ft_strcat(new_cmd, ret);
+			ft_strcat(new_cmd, ft_strchr(tmp[i], '?') + 1);
+			free(tmp[i]);
+			tmp[i] = new_cmd;
+		}
+		i++;
+	}
+}
+
+int	is_builtin(char *s)
+{
+	if(ft_strcmp("cd", s) && ft_strcmp("echo", s) && ft_strcmp("env", s) && ft_strcmp("export", s) && ft_strcmp("pwd", s) && ft_strcmp("unset", s))
+		return (0);
+	return (1);
+}
 
 int find_function(t_shell *shell)
 { 
@@ -24,8 +60,9 @@ int find_function(t_shell *shell)
 
 	cmd = shell->list_cmd->arg[0];
 	i = 0;
-	while (ft_strncmp(tab_f[i].name, cmd, ft_strlen(tab_f[i].name)) != 0 &&
-			ft_strncmp(tab_f[i].name, "execve", ft_strlen(tab_f[i].name)) != 0)
+	ft_replace_ret_values(shell);
+	while (ft_strcmp(tab_f[i].name, cmd) != 0 &&
+			ft_strcmp(tab_f[i].name, "execve") != 0)
 	{
 		i++;
 	}
@@ -110,7 +147,8 @@ int execution(t_shell *shell)
 			return(0);
 		else if(pid != 0)
 		{
-			waitpid(pid,0,0);
+			ft_ret_values(shell, pid);
+		//	waitpid(pid,0,0);
 			return(0);
 		}
 		else
@@ -121,3 +159,5 @@ int execution(t_shell *shell)
 	dprintf(1,"PIPEX2\n");		
 	return(0);
 }
+
+

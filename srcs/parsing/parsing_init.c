@@ -6,7 +6,7 @@
 /*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 11:50:00 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/28 17:12:31 by mrochet          ###   ########lyon.fr   */
+/*   Updated: 2021/10/30 14:32:24 by cerisemasse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int parsing(t_shell *shell)
 	str_split = ft_split(shell->str_cmd, '\200');
 	ft_split_arg_str(shell, str_split);
 	shell->size_list_cmd = lstsize(shell->list_cmd);
-
+	
 	ft_fill_redir(shell);
 	ft_remove_quote_cmd(shell);
 	ft_path_cmd(shell);

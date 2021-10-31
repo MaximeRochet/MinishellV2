@@ -3,14 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 17:09:20 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/10/21 15:57:14 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/10/30 14:59:13 by cerisemasse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t			i;
+	unsigned char	*s1_temp;
+	unsigned char	*s2_temp;
+
+	s1_temp = (unsigned char *)s1;
+	s2_temp = (unsigned char *)s2;
+	i = 0;
+	if (s1_temp && s2_temp )
+	{
+		while (s1_temp[i] && s2_temp[i])
+		{
+			if (s1_temp[i] != s2_temp[i] || s1_temp[i] == '\0')
+				return (s1_temp[i] - s2_temp[i]);
+			i++;
+		}
+		return (0);
+	}
+	else 
+		return (1);
+}
 
 
 int	ft_index_strchr(const char *s, int c)
@@ -91,7 +114,7 @@ char	*ft_get_env(t_shell *shell, char *name)
 	tmp_env = shell->env;
 	while (tmp_env)
 	{
-		if (!ft_strncmp(tmp_env->name, name, ft_strlen(name)))
+		if (!ft_strcmp(tmp_env->name, name))
 			tmp = tmp_env->content;
 		tmp_env = tmp_env->next;
 	}
@@ -109,4 +132,22 @@ int char_is_in(char *str, char c)
 			return(1);
 	}
 	return(0);
+}
+
+
+
+void	ft_strcat(char *dst, const char *src)
+{
+	int		i;
+	int n;
+	
+	i = 0;
+	n = ft_strlen(dst);
+	while (src[i])
+	{
+		dst[n] = src[i];
+		i++;
+		n++;
+	}
+	dst[n] = '\0';
 }

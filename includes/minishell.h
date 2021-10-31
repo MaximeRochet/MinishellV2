@@ -44,6 +44,7 @@ typedef struct s_shell
 	int				**pipes;
 	int				*pids;
 	int				quit;
+	int				ret_value;
 	char		*mssg_erreur;
 	char		**tab_env;	
 
@@ -72,7 +73,8 @@ void	print_list_cmd(t_list_cmd *list);
 void	print_shell(t_shell *shell);
 int	char_is_in(char *str, char c);
 int	ft_index_strchr(const char *s, int c);
-
+int	ft_strcmp(const char *s1, const char *s2);
+void	ft_strcat(char *dst, const char *src);
 
 void	print_env(t_list_env *lst);
 char	*ft_get_env(t_shell *shell, char *name);
@@ -106,12 +108,16 @@ void	ft_check_exist_path(t_shell *shell);
 void    ft_fill_redir(t_shell *shell);
 
 //FONCTION PRINCIPALES
-void	recup_prompt(t_shell *shell);
+char	*recup_prompt(void);
 char	*shearch_in_env(t_list_env *env, char *name);
 
 //EXECUTION
 int execution(t_shell *shell);
 int find_function(t_shell *shell);
+int	is_builtin(char *s);
+
+void	ft_replace_ret_values(t_shell *shell);
+
 
 //BUILT-IN
 void fonction_cd(t_shell *shell);
@@ -121,5 +127,12 @@ void fonction_export(t_shell *shell);
 void fonction_unset(t_shell *shell);
 void fonction_pwd(t_shell *shell);
 void fonction_execve(t_shell *shell);
+void	ft_ret_values(t_shell *shell, int pid);
 
+
+
+
+
+
+void    ft_signal_handler(int sig);
 #endif
