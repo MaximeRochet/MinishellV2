@@ -41,7 +41,8 @@ void fonction_env(t_shell *shell)
 	tmp = shell->env;
 	while(tmp)
 	{
-		printf("%s=%s\n",tmp->name, tmp->content);
+		if(tmp->name)
+			printf("%s=%s\n",tmp->name, tmp->content);
 		tmp=tmp->next;
 	}
 	exit(0);
@@ -72,18 +73,26 @@ void fonction_export(t_shell *shell)
 	int i;
 	char *arg;
 	t_list_cmd *tmp;
+	t_list_env *tmp_env;
 
 	i = 1;
+	tmp_env = shell->env;
 	tmp = shell->list_cmd;
+	if(!tmp->arg[i])
+		while(tmp_env)
+		{
+			if(tmp_env->content)
+				printf("declare -x %s=\"%s\"\n",tmp_env->name, tmp_env->content);
+			else
+				printf("declare -x %s=\n",tmp_env->name);
+			tmp_env = tmp_env->next;
+		}
 	while(tmp->arg[i])
 	{
 		arg =  tmp->arg[i];
-		if(char_is_in(arg, '=') && arg[0] != '=')
-		{
-			delete_env(shell, ft_substr(arg, 0, ft_strchr(arg, '=') - arg));
-			ft_add_back_env(&shell->env, ft_lstnew_env(ft_strchr(arg, '=') + 1\
-						, ft_substr(arg, 0, ft_strchr(arg, '=') - arg)));	
-		}
+		delete_env(shell, ft_substr(arg, 0, ft_strchr(arg, '=') - arg));
+		ft_add_back_env(&shell->env, ft_lstnew_env(ft_strchr(arg, '=') + 1\
+			, ft_substr(arg, 0, ft_strchr(arg, '=') - arg)));	
 		i++;
 	}
 	exit(0);
@@ -155,7 +164,23 @@ void modif_env(t_shell *shell, char *name, char *new_content)
 void fonction_cd(t_shell *shell)
 {
 	char **tmp;
+	char *old;
 
+	printf("act_cd\n");
+	old = getcwd(NULL, 0);
+	tmp = shell->list_cmd->arg;
+	(void)shell;
+	if(!tmp[1] || ft_strncmp(tmp[1], "~", 2) == 0)
+		chdir(ft_get_env(shell, "HOME"));
+	else if(tmp && tmp[1] && tmp[2])
+		return ;
+	else
+		chdir(tmp[1]);
+	modif_env(shell, "OLDPWD", old);
+	modif_env(shell, "PWD", getcwd(NULL, 0));
+	printf("old = %s\n", ft_get_env(shell, "OLDPWD"));
+	printf("pwd = %s\n", ft_get_env(shell, "PWD"));
+  
 	tmp = shell->list_cmd->arg;
 	if (!tmp[1])
 	{
