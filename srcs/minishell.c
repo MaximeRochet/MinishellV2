@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:07:22 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/10/21 13:18:26 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/10/30 16:36:36 by cerisemasse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	main(int ac, char **av, char **env)
 {
 	t_shell *shell;
+	int i;
 	(void)ac; 
 	(void)av;
-
 
 	shell = ft_calloc(sizeof(t_shell), 1);
 	//ft_format_struct(shell);
@@ -28,16 +28,23 @@ int	main(int ac, char **av, char **env)
 	//   printf("Malloc failure");
 	//  return (0);
 	//}
+	i = 0;
 	while(!shell->str_cmd || ft_strncmp(shell->str_cmd, "exit", 4))
 	{
-		recup_prompt(shell);
+		shell->prompt = recup_prompt();
+		signal(SIGINT, ft_signal_handler);
+		signal(SIGQUIT, SIG_IGN);
 		shell->str_cmd = readline(shell->prompt);
+		if(!shell->str_cmd)
+			break ;
 		if(shell->str_cmd && strlen(shell->str_cmd) > 0)
 		{	
 			add_history(shell->str_cmd);
 			parsing(shell);
 			//print_list_cmd(shell->list_cmd);
+			shell->ret_value = i;
 			execution(shell);
+			i = shell->ret_value;
 			shell->list_cmd = NULL;
 			//ft_format_struct(shell);
 			//free(shell.str_cmd);

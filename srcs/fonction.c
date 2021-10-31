@@ -1,6 +1,37 @@
 
 #include "../includes/minishell.h"
 
+void	ft_ret_values(t_shell *shell, int pid)
+{
+	int status;
+	char **tmp;
+	char *cmd;
+
+	tmp = shell->list_cmd->arg;
+	cmd = shell->list_cmd->cmd;
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+	{
+		if(access(cmd, F_OK) == -1 && !is_builtin(tmp[0]))
+			shell->ret_value = 127;
+		else 
+			shell->ret_value =  WEXITSTATUS(status);
+	}
+	else if (WIFSIGNALED(status))
+		shell->ret_value = 128 + WTERMSIG(status);
+	if (shell->ret_value == 2)
+	{
+		if (!tmp[1])
+		{
+			tmp[1] = ft_strdup(getenv("HOME"));
+			tmp[2] = 0;
+		}
+		else if (tmp[1][0] == '~')
+			tmp[1] = ft_strjoin(getenv("HOME"), tmp[1] + 1);
+		chdir(tmp[1]);
+	}
+}
+
 void fonction_env(t_shell *shell)
 {
 	printf("act_env\n");
@@ -14,6 +45,7 @@ void fonction_env(t_shell *shell)
 			printf("%s=%s\n",tmp->name, tmp->content);
 		tmp=tmp->next;
 	}
+	exit(0);
 }
 
 void delete_env(t_shell *shell, char *name)
@@ -63,7 +95,7 @@ void fonction_export(t_shell *shell)
 			, ft_substr(arg, 0, ft_strchr(arg, '=') - arg)));	
 		i++;
 	}
-
+	exit(0);
 }
 
 void fonction_unset(t_shell *shell)
@@ -76,6 +108,7 @@ void fonction_unset(t_shell *shell)
 		return ;
 	while(shell->list_cmd->arg[++i])
 		delete_env(shell,shell->list_cmd->arg[i]);
+	exit(0);
 }
 
 void fonction_pwd(t_shell *shell)
@@ -86,8 +119,8 @@ void fonction_pwd(t_shell *shell)
 	(void)shell;
 	char *buf;
 	buf = getcwd(NULL, 0);
-
 	printf("%s\n", buf);
+	exit(0);
 }
 
 void fonction_echo(t_shell *shell)
@@ -98,7 +131,6 @@ void fonction_echo(t_shell *shell)
 	if(shell->list_cmd->arg[i])
 	{
 		i += (ft_strncmp(shell->list_cmd->arg[i], "-n", 3) == 0);
-		printf("act_echo  %d \n", i);
 		while(shell->list_cmd->arg[i])
 		{
 			printf("%s",shell->list_cmd->arg[i]);
@@ -111,6 +143,7 @@ void fonction_echo(t_shell *shell)
 	}
 	else
 		printf("\n");
+	exit(0);
 }
 
 void modif_env(t_shell *shell, char *name, char *new_content)
@@ -147,27 +180,30 @@ void fonction_cd(t_shell *shell)
 	modif_env(shell, "PWD", getcwd(NULL, 0));
 	printf("old = %s\n", ft_get_env(shell, "OLDPWD"));
 	printf("pwd = %s\n", ft_get_env(shell, "PWD"));
-
+  
+	tmp = shell->list_cmd->arg;
+	if (!tmp[1])
+	{
+		tmp[1] = ft_strdup(getenv("HOME"));
+		tmp[2] = 0;
+	}
+	else if (tmp[1][0] == '~')
+		tmp[1] = ft_strjoin(getenv("HOME"), tmp[1] + 1);
+	if (chdir(tmp[1]) == -1)
+	{
+		printf("ERROR CD\n");
+		exit(1);
+	}
+	exit(2);
 }
 
 void fonction_execve(t_shell *shell)
 {
 	t_list_cmd *tmp;
-	int pid;
-	int status;
 
 	printf("act_execve\n");
 	(void)shell;
 	tmp = shell->list_cmd;
-	pid = fork();
-	if (pid > 0) {
-		waitpid(pid, &status, 0);
-		kill(pid, SIGTERM);
-	} 
-	else
-	{
-		if (execve(tmp->cmd, tmp->arg, shell->tab_env) == -1)
-			dprintf(1, "EXIT FAILED\n");
-		exit(0);
-	}
+	if (execve(tmp->cmd, tmp->arg, shell->tab_env) == -1)
+		exit(1);
 }
