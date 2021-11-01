@@ -191,7 +191,7 @@ void fonction_cd(t_shell *shell)
 		tmp[1] = ft_strjoin(getenv("HOME"), tmp[1] + 1);
 	if (chdir(tmp[1]) == -1)
 	{
-		printf("ERROR CD\n");
+		printf(": cd: %s: No such file or directory\n", tmp[1]);
 		exit(1);
 	}
 	exit(2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
+/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 11:50:00 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/30 14:32:24 by cerisemasse      ###   ########.fr       */
+/*   Updated: 2021/11/01 16:54:25 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,14 @@ int parsing(t_shell *shell)
 
 	shell->str_cmd = find_redir(shell->str_cmd);
 	if (ft_valide_quote_str(shell) == 1)
+	{
+		printf(": number of invalid quotes\n");
 		return (-1);
-	ft_check_variable(shell);
+	}
+	if (ft_check_variable(shell) == -1)
+		return (-1);
 	shell->str_cmd = ft_replace_pipe_str(shell->str_cmd, '|');
+
 	str_split = ft_split(shell->str_cmd, '\200');
 	ft_split_arg_str(shell, str_split);
 	shell->size_list_cmd = lstsize(shell->list_cmd);
@@ -86,6 +91,10 @@ int parsing(t_shell *shell)
 	ft_remove_quote_cmd(shell);
 	ft_path_cmd(shell);
 	if (shell->list_cmd->cmd ==  NULL)
-		ft_check_exist_path(shell);
+		if (ft_check_exist_path(shell) == -1)
+		{
+			printf("%s: command not found\n", shell->list_cmd->arg[0]);
+			return (-1);
+		}
 	return(0);
 }

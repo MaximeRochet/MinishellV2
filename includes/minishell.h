@@ -89,7 +89,7 @@ int		parsing(t_shell *shell);
 int		ft_valide_quote_str(t_shell *shell);
 
 // 	PARSING_VAR
-void 	ft_check_variable(t_shell *shell);
+int 	ft_check_variable(t_shell *shell);
 void  	ft_replace_var(t_shell *shell, int i);
 char	*ft_delete_var(int start, int end, t_shell *shell);
 char	*ft_paste_name_var(int start,  char *var, t_shell *shell);
@@ -102,7 +102,7 @@ void	ft_split_arg_str(t_shell *shell, char **str_split);
 // PARSING_CMD
 void	ft_remove_quote_cmd(t_shell *shell);
 void	ft_path_cmd(t_shell *shell);
-void	ft_check_exist_path(t_shell *shell);
+int	ft_check_exist_path(t_shell *shell);
 
 // PARSING_REDIRECTION
 void    ft_fill_redir(t_shell *shell);
