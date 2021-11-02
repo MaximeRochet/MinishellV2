@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:07:22 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/11/01 16:45:35 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/02 12:45:38 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	main(int ac, char **av, char **env)
 {
-	t_shell *shell;
-	int i;
-	(void)ac; 
-	(void)av;
+	t_shell	*shell;
+	int		i;
 
+	(void)ac;
+	(void)av;
 	shell = ft_calloc(sizeof(t_shell), 1);
 	//ft_format_struct(shell);
 	init_env(env, shell);
@@ -29,25 +29,23 @@ int	main(int ac, char **av, char **env)
 	//  return (0);
 	//}
 	i = 0;
-	while(!shell->str_cmd || ft_strncmp(shell->str_cmd, "exit", 4))
+	while (!shell->str_cmd || ft_strncmp(shell->str_cmd, "exit", 4))
 	{
 		shell->prompt = recup_prompt();
 		signal(SIGINT, ft_signal_handler);
 		signal(SIGQUIT, SIG_IGN);
 		shell->str_cmd = readline(shell->prompt);
-		if(!shell->str_cmd)
+		if (!shell->str_cmd)
 			break ;
-		if(shell->str_cmd && strlen(shell->str_cmd) > 0)
+		if (shell->str_cmd && strlen(shell->str_cmd) > 0)
 		{	
 			add_history(shell->str_cmd);
-			// if (parsing(shell) == -1)
-			// 	break ;
 			if (parsing(shell) == 0)
 			{
 				shell->ret_value = i;
 				execution(shell);
 				i = shell->ret_value;
-			print_list_cmd(shell->list_cmd);
+				print_list_cmd(shell->list_cmd);
 			}
 			shell->list_cmd = NULL;
 			//ft_format_struct(shell);
@@ -56,5 +54,5 @@ int	main(int ac, char **av, char **env)
 	}
 	dprintf(1, "exit");
 	free(shell->str_cmd);
-	return (0) ;
+	return (0);
 }

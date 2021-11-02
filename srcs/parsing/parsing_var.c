@@ -6,28 +6,23 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:19:47 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/01 16:44:11 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/02 12:26:53 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*ft_paste_name_var(int start, char *var, t_shell *shell)
+char	*ft_paste_name_var(int start, char *var, t_shell *shell, int i)
 {
+	char	*str;
+	int		y;
+	int		end;
 
-	char *str;
-	int i;
-	int y;
-	int end;
-
-	str = (char *)calloc(sizeof(char), ft_strlen(shell->str_cmd) + ft_strlen(var));
-	i = 0;
+	str = (char *)calloc(sizeof(char), \
+	ft_strlen(shell->str_cmd) + ft_strlen(var));
 	y = 0;
-	while (i < start)
-	{
+	while (i++ < start)
 		str[i] = shell->str_cmd[i];
-		i++;
-	}
 	end = i;
 	while (var[y])
 	{
@@ -47,10 +42,11 @@ char	*ft_paste_name_var(int start, char *var, t_shell *shell)
 
 char	*ft_delete_var(int start, int end, t_shell *shell)
 {
-	char *str;
-	int i;
+	char	*str;
+	int		i;
 
-	str = (char *)calloc(sizeof(char), start + ft_strlen(shell->str_cmd) - end);
+	str = (char *)calloc(sizeof(char), \
+	start + ft_strlen(shell->str_cmd) - end);
 	i = 0;
 	while (i < start)
 	{
@@ -68,12 +64,12 @@ char	*ft_delete_var(int start, int end, t_shell *shell)
 	return (str);
 }
 
-void ft_replace_var(t_shell *shell, int i)
+void	ft_replace_var(t_shell *shell, int i)
 {
-	char *str;
-	char *var;
-	int y;
-	int count;
+	char	*str;
+	char	*var;
+	int		y;
+	int		count;
 
 	str = ft_strdup(shell->str_cmd);
 	var = NULL;
@@ -85,7 +81,6 @@ void ft_replace_var(t_shell *shell, int i)
 		i++;
 		count++;
 	}
-	
 	var = ft_strdup(ft_get_env(shell, ft_substr(str, y, count)));
 	if (!var)
 	{
@@ -94,24 +89,22 @@ void ft_replace_var(t_shell *shell, int i)
 		return ;
 	}
 	str = ft_strdup(ft_delete_var(y - 1, i, shell));
-	str = ft_strdup(ft_paste_name_var(y - 1, var ,shell));
+	str = ft_strdup(ft_paste_name_var(y - 1, var, shell, 0));
 	shell->str_cmd = str;
 }
 
-int ft_check_variable(t_shell *shell)
+int	ft_check_variable(t_shell *shell, int i)
 {
-	int i;
-	char *str;
-	int d_quote;
-	int quote;
-	
-	i = 0;
+	char	*str;
+	int		d_quote;
+	int		quote;
+
 	d_quote = 0;
 	str = shell->str_cmd;
 	quote = 0;
 	while (str[i])
 	{	
-		if(str[i] == '\"' && quote == 0)
+		if (str[i] == '\"' && quote == 0)
 			d_quote++;
 		if (str[i] == '\'' && quote == 0 && d_quote % 2 == 0)
 			quote = 1;
@@ -126,5 +119,5 @@ int ft_check_variable(t_shell *shell)
 		}
 		i++;
 	}
-	return  (0);
+	return (0);
 }

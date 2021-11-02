@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/28 14:03:31 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/02 12:48:20 by cmasse           ###   ########.fr       */
+/*   Created: 2021/11/02 12:18:48 by cmasse            #+#    #+#             */
+/*   Updated: 2021/11/02 12:20:02 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+void	ft_strcat(char *dst, const char *src)
 {
-	t_list	*tmp;
-	t_list	*root;
+	int	i;
+	int	n;
 
-	(void)root;
-	root = *lst;
-	while (*lst)
+	i = 0;
+	n = ft_strlen(dst);
+	while (src[i])
 	{
-		tmp = *lst;
-		*lst = tmp->next;
-		ft_lstdelone(tmp, (*del));
+		dst[n] = src[i];
+		i++;
+		n++;
 	}
-	root = NULL;
+	dst[n] = '\0';
 }
