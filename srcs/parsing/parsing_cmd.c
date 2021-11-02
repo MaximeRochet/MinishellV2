@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
+/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:29:35 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/22 14:46:32 by cerisemasse      ###   ########.fr       */
+/*   Updated: 2021/11/01 16:13:41 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_remove_quote_cmd(t_shell *shell)
 	}
 }
 
-void	ft_check_exist_path(t_shell *shell)
+int	ft_check_exist_path(t_shell *shell)
 {
 	t_list_cmd	*tmp_str;
 	int i;
@@ -80,17 +80,17 @@ void	ft_check_exist_path(t_shell *shell)
 		{
 			tmp_str->cmd = ft_strdup(tmp_str->arg[0]);
 			if (tmp_str->next == NULL)
-					return ;         
+					return (0);         
 			break ;
 		}
 		if (i == 6 && access(tmp_str->arg[0], F_OK) == -1)
 		{
 			tmp_str->cmd = NULL;
-			return ;
+			return (-1) ;
 		}
 		tmp_str = tmp_str->next;
 	}
-	return ;
+	return (-1);
 }
 
 void	ft_path_cmd_next(int i, char **tab_path, t_list_cmd	*tmp_str)

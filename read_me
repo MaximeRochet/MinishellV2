@@ -17,3 +17,16 @@ ______________
 ARRETER DE FAIRE DES TRUC JUSTE PARCE QUE LE TERMINAL LE DIT AU LIEU DE
 COMPRENDRE CE QUE JE FAIS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+
+------------------------------------------------------------
+les differents problemes
+
+echo '$USE'R cerise: marche pas rien ne s'affiche 
+
+echo $'US'ER cerise : ca affiche : /Users/cmasse/Desktop/minishellv2/./minishellUSER cerise
+en gros ca prend pwd chelou 
+
+le cd ne marche pas 
+
+quand on fait ctrl D ou C ca s'affiche aur le prompte 
+

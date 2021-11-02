@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
+/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:19:47 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/30 14:49:08 by cerisemasse      ###   ########.fr       */
+/*   Updated: 2021/11/01 16:44:11 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void ft_replace_var(t_shell *shell, int i)
 	shell->str_cmd = str;
 }
 
-void ft_check_variable(t_shell *shell)
+int ft_check_variable(t_shell *shell)
 {
 	int i;
 	char *str;
@@ -120,9 +120,11 @@ void ft_check_variable(t_shell *shell)
 		if (str[i] == '$' && quote == 0 && str[i + 1] != '?')
 		{
 			ft_replace_var(shell, i);
+			if (shell->str_cmd && ft_strlen(shell->str_cmd) == 0)
+				return (-1);
 			str = ft_strdup(shell->str_cmd);
 		}
 		i++;
 	}
-	return ;
+	return  (0);
 }
