@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:07:22 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/11/02 12:45:38 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/03 17:05:27 by mrochet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	main(int ac, char **av, char **env)
 				shell->ret_value = i;
 				execution(shell);
 				i = shell->ret_value;
-				print_list_cmd(shell->list_cmd);
 			}
 			shell->list_cmd = NULL;
 			//ft_format_struct(shell);

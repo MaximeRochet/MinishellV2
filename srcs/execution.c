@@ -151,8 +151,8 @@ void	pipex(t_shell *shell)
 int	execution(t_shell *shell)
 {
 	//	int pid = 0;
-//	if(shell->size_list_cmd == 1)
-//	{
+	//if(shell->size_list_cmd == 1)
+	//{
 	//	pid = fork();
 	//	if(pid < 0)
 	//		return(0);
@@ -167,6 +167,5 @@ int	execution(t_shell *shell)
 	
 	if (shell->size_list_cmd > 1)
 		pipex(shell);
-	dprintf(1, "PIPEX2\n");
 	return (0);
 }

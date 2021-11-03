@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing_init.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 11:50:00 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/02 12:34:55 by cmasse           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/minishell.h"
 
 void	init_env(char **env, t_shell *shell)
@@ -60,6 +48,7 @@ int	lstsize(t_list_cmd *lst_cmd)
 	t_list_cmd	*tmp;
 	int			i;
 
+	tmp = lst_cmd;
 	i = 0;
 	tmp = lst_cmd;
 	while (tmp)
@@ -82,20 +71,27 @@ int	parsing(t_shell *shell)
 	}
 	if (ft_check_variable(shell, 0) == -1)
 		return (-1);
+	//replace pipes
 	shell->str_cmd = ft_replace_pipe_str(shell->str_cmd, '|');
+	//split par pipe
 	str_split = ft_split(shell->str_cmd, '\200');
+	//split arg
 	ft_split_arg_str(shell, str_split);
+	//taille de la liste
 	shell->size_list_cmd = lstsize(shell->list_cmd);
+	//remplissage des redirections
 	ft_fill_redir(shell);
+	//suppression des quotes
 	ft_remove_quote_cmd(shell);
+	//remplissage de la commande
 	ft_path_cmd(shell);
-	// if (shell->list_cmd->cmd == NULL)
-	// {
-	if (ft_check_exist_path(shell) == -1)
-	{
-		printf("%s: command not found\n", shell->list_cmd->arg[0]);
-		return (-1);
+	if (shell->list_cmd->cmd == NULL && !is_builtin(shell->list_cmd->arg[0]))
+		{
+		if (ft_check_exist_path(shell) == -1)
+		{
+			printf("%s: command not found\n", shell->list_cmd->arg[0]);
+			return (-1);
+		}
 	}
-	// }
 	return (0);
 }

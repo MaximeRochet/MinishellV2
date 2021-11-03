@@ -58,5 +58,4 @@ void    ft_fill_redir(t_shell *shell)
 		shell->list_cmd = shell->list_cmd->next;
 	}
 	shell->list_cmd = tmp;
-	print_list_cmd(shell->list_cmd);
 }

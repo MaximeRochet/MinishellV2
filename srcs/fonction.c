@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 12:05:15 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/03 15:41:57 by mrochet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/03 18:17:10 by mrochet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,10 @@ void	fonction_env(t_shell *shell)
 		return ;
 	while (tmp)
 	{
-		if (tmp->name)
+		if (tmp->content)
 			printf("%s=%s\n", tmp->name, tmp->content);
 		tmp = tmp->next;
 	}
-	exit(0);
 }
 
 void	delete_env(t_shell *shell, char *name)
@@ -81,6 +80,20 @@ void	delete_env(t_shell *shell, char *name)
 			tmp_prev = tmp_prev->next;
 	}
 	tmp_prev->next = tmp_prev->next->next;
+}
+
+int exist_env(t_shell *shell, char *arg)
+{
+	t_list_env *tmp;
+
+	tmp = shell->env;
+	while(tmp)
+	{
+		if(strcmp(tmp->name, arg) == 0)
+			return(1);
+		tmp=tmp->next;
+	}
+	return(0);
 }
 
 void	fonction_export(t_shell *shell)
@@ -101,19 +114,26 @@ void	fonction_export(t_shell *shell)
 			if (tmp_env->content)
 				printf("declare -x %s=\"%s\"\n", tmp_env->name, tmp_env->content);
 			else
-				printf("declare -x %s=\n", tmp_env->name);
+				printf("declare -x %s\n", tmp_env->name);
 			tmp_env = tmp_env->next;
 		}
 	}
 	while (tmp->arg[i])
 	{
 		arg = tmp->arg[i];
-		delete_env(shell, ft_substr(arg, 0, ft_strchr(arg, '=') - arg));
-		ft_add_back_env(&shell->env, ft_lstnew_env(ft_strchr(arg, '=') + 1 \
-		, ft_substr(arg, 0, ft_strchr(arg, '=') - arg)));
+		if (strchr(arg, '='))
+		{
+			delete_env(shell, ft_substr(arg, 0, ft_strchr(arg, '=') - arg));
+			ft_add_back_env(&shell->env, ft_lstnew_env(ft_strchr(arg, '=') + 1 \
+			, ft_substr(arg, 0, ft_strchr(arg, '=') - arg)));
+		}
+		else if(exist_env(shell, arg) == 0)
+		{
+			printf("existe env = %d\n", exist_env(shell, arg));
+			ft_add_back_env(&shell->env, ft_lstnew_env(NULL, arg));
+		}
 		i++;
 	}
-	exit(0);
 }
 
 void	fonction_unset(t_shell *shell)
@@ -127,7 +147,6 @@ void	fonction_unset(t_shell *shell)
 		return ;
 	while (shell->list_cmd->arg[++i])
 		delete_env(shell, shell->list_cmd->arg[i]);
-	exit(0);
 }
 
 void	fonction_pwd(t_shell *shell)
@@ -138,7 +157,6 @@ void	fonction_pwd(t_shell *shell)
 	printf("act_pwd\n");
 	buf = getcwd(NULL, 0);
 	printf("%s\n", buf);
-	exit(0);
 }
 
 void	fonction_echo(t_shell *shell)
@@ -163,7 +181,6 @@ void	fonction_echo(t_shell *shell)
 	}
 	else
 		printf("\n");
-	exit(0);
 }
 
 void	modif_env(t_shell *shell, char *name, char *new_content)
@@ -212,7 +229,6 @@ void	fonction_cd(t_shell *shell)
 		printf(": cd: %s: No such file or directory\n", tmp[1]);
 		exit(1);
 	}
-	exit(2);
 }
 
 void	fonction_execve(t_shell *shell)
