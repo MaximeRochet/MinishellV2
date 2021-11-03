@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   liste.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
+/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:21:16 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/10/26 21:03:02 by mrochet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/02 12:46:23 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ t_list_cmd	*ft_new_cmd(char **arg)
 		return (0);
 	list->arg = arg;
 	list->redir_in = 0;
-	list->redir_out =0;
-	//list->fd = fd;
+	list->redir_out = 0;
 	list->next = NULL;
 	return (list);
 }
@@ -56,7 +55,6 @@ t_list_env	*ft_lstnew_env(void *content, void *name)
 	return (n);
 }
 
-
 void	ft_add_back_env(t_list_env **alst, t_list_env *new)
 {
 	t_list_env	*tmp;
@@ -71,5 +69,4 @@ void	ft_add_back_env(t_list_env **alst, t_list_env *new)
 		*alst = (*alst)->next;
 	(*alst)->next = new;
 	*alst = tmp;
-
 }

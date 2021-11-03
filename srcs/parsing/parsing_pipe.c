@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
+/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:28:19 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/22 15:10:37 by cerisemasse      ###   ########.fr       */
+/*   Updated: 2021/11/02 12:30:23 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 char	*ft_replace_pipe_str(char *str, char c)
 {
-	int	i;
-	char i_str;
-	int quote = 0;
+	char	i_str;
+	int		i;
+	int		quote;
 
+	quote = 0;
 	i = 0;
 	i_str = 0;
 	while (str[i])
@@ -36,12 +37,12 @@ char	*ft_replace_pipe_str(char *str, char c)
 			str[i] = '\200';
 		i++;
 	}
-	return (str) ;
+	return (str);
 }
 
 void	ft_split_arg_str(t_shell *shell, char **str_split)
 {
-	int i;
+	int		i;
 	char	**split;
 
 	i = 0;
@@ -52,4 +53,4 @@ void	ft_split_arg_str(t_shell *shell, char **str_split)
 		ft_add_back_cmd(&shell->list_cmd, ft_new_cmd(split));
 		i++;
 	}
- }
+}

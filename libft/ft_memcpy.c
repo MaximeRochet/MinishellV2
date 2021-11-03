@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 16:00:18 by cmasse            #+#    #+#             */
-/*   Updated: 2021/10/07 13:35:32 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/02 12:48:56 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	*ft_memcpy(void *dst, const void *src, size_t len)
 	while (i < len)
 	{
 		n_dst[i] = n_src[i];
-		
 		i++;
 	}
 	n_dst[i] = '\0';

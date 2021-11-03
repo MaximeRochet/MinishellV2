@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
+/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 17:09:20 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/10/30 14:59:13 by cerisemasse      ###   ########.fr       */
+/*   Updated: 2021/11/02 12:19:36 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	s1_temp = (unsigned char *)s1;
 	s2_temp = (unsigned char *)s2;
 	i = 0;
-	if (s1_temp && s2_temp )
+	if (s1_temp && s2_temp)
 	{
 		while (s1_temp[i] && s2_temp[i])
 		{
@@ -31,14 +31,13 @@ int	ft_strcmp(const char *s1, const char *s2)
 		}
 		return (0);
 	}
-	else 
+	else
 		return (1);
 }
 
-
 int	ft_index_strchr(const char *s, int c)
 {
-	int				i;
+	int	i;
 
 	i = 0;
 	if (!c)
@@ -83,7 +82,6 @@ char	*ft_strstr(char *str, char *to_find)
 // 	char *tmp;
 // 	int i;
 // 	int y;
-	
 // 	i = 0;
 // 	y = 0;
 // 	tmp_path = shell->env; 
@@ -107,9 +105,9 @@ char	*ft_strstr(char *str, char *to_find)
 
 char	*ft_get_env(t_shell *shell, char *name)
 {
-	t_list_env *tmp_env;
-	char *tmp;
-	
+	t_list_env	*tmp_env;
+	char		*tmp;
+
 	tmp = NULL;
 	tmp_env = shell->env;
 	while (tmp_env)
@@ -121,33 +119,15 @@ char	*ft_get_env(t_shell *shell, char *name)
 	return (tmp);
 }
 
-int char_is_in(char *str, char c)
+int	char_is_in(char *str, char c)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	while(str[++i])
+	while (str[++i])
 	{
-		if(str[i] == c)
-			return(1);
+		if (str[i] == c)
+			return (1);
 	}
-	return(0);
-}
-
-
-
-void	ft_strcat(char *dst, const char *src)
-{
-	int		i;
-	int n;
-	
-	i = 0;
-	n = ft_strlen(dst);
-	while (src[i])
-	{
-		dst[n] = src[i];
-		i++;
-		n++;
-	}
-	dst[n] = '\0';
+	return (0);
 }

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/02 12:48:00 by cmasse            #+#    #+#             */
+/*   Updated: 2021/11/02 12:48:09 by cmasse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 int	ft_strncmp(const char *s1, const char *s2, int n)
 {
-	int			i;
+	int				i;
 	unsigned char	*s1_temp;
 	unsigned char	*s2_temp;
 
@@ -14,9 +26,4 @@ int	ft_strncmp(const char *s1, const char *s2, int n)
 		i++;
 	}
 	return (0);
-}
-
-int main()
-{
-	ft_strncmp("oui", "comment", 5);
 }
