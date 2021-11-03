@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/13 19:39:19 by mrochet           #+#    #+#             */
-/*   Updated: 2021/11/02 11:59:51 by cmasse           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -50,8 +39,30 @@ int	is_builtin(char *s)
 	return (1);
 }
 
-int	find_function(t_shell *shell)
+int find_function_exit(t_shell *shell)
 {
+	t_fonc	tab_f[] = {
+		{"cd", &fonction_cd}, {"echo", &fonction_echo}, \
+		{"env", &fonction_env}, {"export", &fonction_export}, \
+		{"pwd", &fonction_pwd}, {"unset", &fonction_unset}, \
+		{"execve", &fonction_execve}};
+	int		i;
+	char 	*cmd;
+
+	cmd = shell->list_cmd->arg[0];
+	i = 0;
+	ft_replace_ret_values(shell);
+	while (ft_strcmp(tab_f[i].name, cmd) != 0 &&
+			ft_strcmp(tab_f[i].name, "execve") != 0)
+	{
+		i++;
+	}
+	tab_f[i].fct(shell);
+	exit(1);
+}
+
+int find_function(t_shell *shell)
+{ 
 	t_fonc	tab_f[] = {
 		{"cd", &fonction_cd}, {"echo", &fonction_echo}, \
 		{"env", &fonction_env}, {"export", &fonction_export}, \
@@ -74,7 +85,7 @@ void	child_process_start(t_shell *shell, int i)
 {
 	dup2(shell->pipes[i][1], STDOUT_FILENO);
 	close (shell->pipes[i][1]);
-	find_function(shell);
+	find_function_exit(shell);
 }
 
 void	child_process_middle(t_shell *shell, int i)
@@ -83,7 +94,7 @@ void	child_process_middle(t_shell *shell, int i)
 	dup2(shell->pipes[i][1], STDOUT_FILENO);
 	close(shell->pipes[i][1]);
 	close(shell->pipes[i - 1][0]);
-	find_function(shell);
+	find_function_exit(shell);
 }
 
 void	child_process_end(t_shell *shell, int i)
@@ -92,7 +103,7 @@ void	child_process_end(t_shell *shell, int i)
 	close(shell->pipes[i - 1][0]);
 	close(shell->pipes[i][1]);
 	close(shell->pipes[i][0]);
-	find_function(shell);
+	find_function_exit(shell);
 }
 
 void	child_process(t_shell *shell, int i)
@@ -139,24 +150,22 @@ void	pipex(t_shell *shell)
 
 int	execution(t_shell *shell)
 {
-	int	pid;
-
-	pid = 0;
-	if (shell->size_list_cmd == 1)
-	{
-		pid = fork();
-		if (pid < 0)
-			return (0);
-		else if (pid != 0)
-		{
-			ft_ret_values(shell, pid);
+	//	int pid = 0;
+//	if(shell->size_list_cmd == 1)
+//	{
+	//	pid = fork();
+	//	if(pid < 0)
+	//		return(0);
+	//	else if(pid != 0)
+	//	{
+	//		ft_ret_values(shell, pid);
 		//	waitpid(pid,0,0);
-			return (0);
-		}
-		else
-			find_function(shell);
-	}
-	else if (shell->size_list_cmd > 1)
+	//		return(0);
+	//	}
+	//	else
+		find_function(shell);
+	
+	if (shell->size_list_cmd > 1)
 		pipex(shell);
 	dprintf(1, "PIPEX2\n");
 	return (0);

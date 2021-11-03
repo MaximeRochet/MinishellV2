@@ -6,7 +6,7 @@
 #    By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 16:16:40 by cerisemasse       #+#    #+#              #
-#    Updated: 2021/11/02 12:19:14 by cmasse           ###   ########.fr        #
+#    Updated: 2021/11/03 15:48:03 by mrochet          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRCS_NAME = liste.c minishell.c \
 			fonction.c space.c signal.c \
 			$(SRCS_UTILS) $(SRCS_PARSING)
 
-SRCS_UTILS = $(addprefix $(UTILS_PATH)/, utils.c, utils_2.c)
+SRCS_UTILS = $(addprefix $(UTILS_PATH)/, utils.c utils_2.c)
 SRCS_PARSING = $(addprefix $(PARSING_PATH)/, parsing_init.c parsing_var.c parsing_pipe.c parsing_cmd.c parsing_redirection.c)
 
 LIB_NAME = ./minishell.h 

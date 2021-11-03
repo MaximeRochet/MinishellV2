@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:50:58 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/02 12:26:45 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/03 15:46:09 by mrochet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ char		*shearch_in_env(t_list_env *env, char *name);
 //EXECUTION
 int			execution(t_shell *shell);
 int			find_function(t_shell *shell);
+int			find_function_exit(t_shell *shell);
 int			is_builtin(char *s);
 void		ft_replace_ret_values(t_shell *shell);
 

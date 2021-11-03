@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 12:05:15 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/02 12:47:02 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/03 15:41:57 by mrochet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	ft_ret_values_next(t_shell *shell, int pid)
 {
+	char	**tmp;
+	tmp = shell->list_cmd->arg;
+	(void)pid;
 	if (!tmp[1])
 	{
 		tmp[1] = ft_strdup(getenv("HOME"));
