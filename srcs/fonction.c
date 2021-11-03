@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 12:05:15 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/03 18:17:10 by mrochet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/03 20:11:19 by mrochet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,19 @@ int exist_env(t_shell *shell, char *arg)
 	return(0);
 }
 
+char verif_arg_env(char *str)
+{
+	int i;
+
+	i = -1;
+	if(str[0] == '=')
+		return('=');
+	while(str[++i])
+		if(!ft_isalpha(str[i]) && str[i] != '_' && str[i] != '=')
+			return(str[i]);
+	return('a');
+}
+
 void	fonction_export(t_shell *shell)
 {
 	int			i;
@@ -107,6 +120,7 @@ void	fonction_export(t_shell *shell)
 	i = 1;
 	tmp_env = shell->env;
 	tmp = shell->list_cmd;
+
 	if (!tmp->arg[i])
 	{
 		while (tmp_env)
@@ -121,17 +135,16 @@ void	fonction_export(t_shell *shell)
 	while (tmp->arg[i])
 	{
 		arg = tmp->arg[i];
-		if (strchr(arg, '='))
+		if(verif_arg_env(arg) != 'a')
+			printf("%c caractere invalide\n", verif_arg_env(arg));
+		else if (strchr(arg, '='))
 		{
 			delete_env(shell, ft_substr(arg, 0, ft_strchr(arg, '=') - arg));
 			ft_add_back_env(&shell->env, ft_lstnew_env(ft_strchr(arg, '=') + 1 \
 			, ft_substr(arg, 0, ft_strchr(arg, '=') - arg)));
 		}
 		else if(exist_env(shell, arg) == 0)
-		{
-			printf("existe env = %d\n", exist_env(shell, arg));
 			ft_add_back_env(&shell->env, ft_lstnew_env(NULL, arg));
-		}
 		i++;
 	}
 }
