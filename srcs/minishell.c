@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/06 16:07:22 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/11/03 17:05:27 by mrochet          ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/minishell.h"
 
 int	main(int ac, char **av, char **env)
@@ -42,6 +30,7 @@ int	main(int ac, char **av, char **env)
 			add_history(shell->str_cmd);
 			if (parsing(shell) == 0)
 			{
+				print_list_cmd(shell->list_cmd);
 				shell->ret_value = i;
 				execution(shell);
 				i = shell->ret_value;

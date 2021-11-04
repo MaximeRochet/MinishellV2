@@ -150,22 +150,24 @@ void	pipex(t_shell *shell)
 
 int	execution(t_shell *shell)
 {
-	//	int pid = 0;
-	//if(shell->size_list_cmd == 1)
-	//{
-	//	pid = fork();
-	//	if(pid < 0)
-	//		return(0);
-	//	else if(pid != 0)
-	//	{
-	//		ft_ret_values(shell, pid);
-		//	waitpid(pid,0,0);
-	//		return(0);
-	//	}
-	//	else
-		find_function(shell);
-	
-	if (shell->size_list_cmd > 1)
+	int pid = 0;
+	if(is_builtin(shell->list_cmd->arg[0]) && shell->size_list_cmd == 1)
+		find_function(shell);	
+	else if(shell->size_list_cmd == 1)
+	{
+		pid = fork();
+		if(pid < 0)
+			return(0);
+		else if(pid != 0)
+		{
+			ft_ret_values(shell, pid);
+			waitpid(pid,0,0);
+			return(0);
+		}
+		else
+			find_function(shell);
+	}
+	else if (shell->size_list_cmd > 1)
 		pipex(shell);
 	return (0);
 }

@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   fonction.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 12:05:15 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/03 20:11:19 by mrochet          ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -158,6 +147,8 @@ void	fonction_unset(t_shell *shell)
 	i = -1;
 	if (!shell->list_cmd->arg[1])
 		return ;
+	else if(verif_arg_env(shell->list_cmd->arg[0]) != 'a')
+		printf("%c caractere invalide\n", verif_arg_env(shell->list_cmd->arg[0]));
 	while (shell->list_cmd->arg[++i])
 		delete_env(shell, shell->list_cmd->arg[i]);
 }
@@ -238,10 +229,7 @@ void	fonction_cd(t_shell *shell)
 	else if (tmp[1][0] == '~')
 		tmp[1] = ft_strjoin(getenv("HOME"), tmp[1] + 1);
 	if (chdir(tmp[1]) == -1)
-	{
 		printf(": cd: %s: No such file or directory\n", tmp[1]);
-		exit(1);
-	}
 }
 
 void	fonction_execve(t_shell *shell)
