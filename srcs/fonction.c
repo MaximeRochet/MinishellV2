@@ -238,6 +238,7 @@ void	fonction_execve(t_shell *shell)
 
 	printf("act_execve\n");
 	(void)shell;
+	init_dup_file(shell);	
 	tmp = shell->list_cmd;
 	if (execve(tmp->cmd, tmp->arg, shell->tab_env) == -1)
 		exit(1);

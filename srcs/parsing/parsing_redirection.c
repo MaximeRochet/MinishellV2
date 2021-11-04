@@ -32,9 +32,9 @@ void	fill_out(t_shell *shell, int i)
 	
 	tmp = shell->list_cmd->arg;
 	if (tmp[i][0] == '>' && tmp[i][0] == tmp[i][1])
-		shell->list_cmd->redir_out = open(tmp[i+1], O_WRONLY| O_CREAT | O_TRUNC);
+		shell->list_cmd->redir_out = open(tmp[i+1], O_WRONLY| O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	else if(tmp[i][0] == '>')
-		shell->list_cmd->redir_out = open(tmp[i+1], O_WRONLY| O_CREAT);
+		shell->list_cmd->redir_out = open(tmp[i+1], O_WRONLY| O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	delete_line_tab(shell, i);
 }
 
@@ -49,7 +49,6 @@ void    ft_fill_redir(t_shell *shell)
 		i=-1;
 		while(shell->list_cmd->arg[++i])
 		{
-			printf("redir = %s\n",shell->list_cmd->arg[i]);
 			if(shell->list_cmd->arg[i][0] == '>')
 				fill_out(shell, i--);
 			else if(shell->list_cmd->arg[i][0] == '<')
