@@ -1,2 +1,0 @@
-act_execve
-test
