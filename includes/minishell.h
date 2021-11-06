@@ -127,7 +127,8 @@ int			execution(t_shell *shell);
 int			find_function(t_shell *shell);
 int			find_function_exit(t_shell *shell);
 int			is_builtin(char *s);
-void		ft_replace_ret_values(t_shell *shell);
+void			ft_replace_ret_values(t_shell *shell);
+int			init_dup_file(t_shell *shell);
 
 //BUILT-IN
 void		fonction_cd(t_shell *shell);
@@ -138,6 +139,6 @@ void		fonction_unset(t_shell *shell);
 void		fonction_pwd(t_shell *shell);
 void		fonction_execve(t_shell *shell);
 void		ft_ret_values(t_shell *shell, int pid);
-
 void		ft_signal_handler(int sig);
-#endif
+
+#endif	

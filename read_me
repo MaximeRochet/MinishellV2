@@ -1,21 +1,4 @@
-commenter l utiliter de chaque fonction
 maillon de se supprime pas
-
-
-
-____PARSING___ 
-enleve les quots ok
-remplacer les $
-(separer en 2 la ligne de commande (dernier  > ou >> et arg) et (cmd et arg))
-split pipe
-recherche commande et verif chemin commande ok
-si pas de commande est ce que > devant
-liste chainé
-______________
-
-
-ARRETER DE FAIRE DES TRUC JUSTE PARCE QUE LE TERMINAL LE DIT AU LIEU DE
-COMPRENDRE CE QUE JE FAIS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 ------------------------------------------------------------

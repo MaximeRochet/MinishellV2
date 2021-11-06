@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   fonction.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 12:05:15 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/03 15:41:57 by mrochet          ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -59,11 +48,10 @@ void	fonction_env(t_shell *shell)
 		return ;
 	while (tmp)
 	{
-		if (tmp->name)
+		if (tmp->content)
 			printf("%s=%s\n", tmp->name, tmp->content);
 		tmp = tmp->next;
 	}
-	exit(0);
 }
 
 void	delete_env(t_shell *shell, char *name)
@@ -83,6 +71,33 @@ void	delete_env(t_shell *shell, char *name)
 	tmp_prev->next = tmp_prev->next->next;
 }
 
+int exist_env(t_shell *shell, char *arg)
+{
+	t_list_env *tmp;
+
+	tmp = shell->env;
+	while(tmp)
+	{
+		if(strcmp(tmp->name, arg) == 0)
+			return(1);
+		tmp=tmp->next;
+	}
+	return(0);
+}
+
+char verif_arg_env(char *str)
+{
+	int i;
+
+	i = -1;
+	if(str[0] == '=')
+		return('=');
+	while(str[++i])
+		if(!ft_isalpha(str[i]) && str[i] != '_' && str[i] != '=')
+			return(str[i]);
+	return('a');
+}
+
 void	fonction_export(t_shell *shell)
 {
 	int			i;
@@ -94,6 +109,7 @@ void	fonction_export(t_shell *shell)
 	i = 1;
 	tmp_env = shell->env;
 	tmp = shell->list_cmd;
+
 	if (!tmp->arg[i])
 	{
 		while (tmp_env)
@@ -101,19 +117,25 @@ void	fonction_export(t_shell *shell)
 			if (tmp_env->content)
 				printf("declare -x %s=\"%s\"\n", tmp_env->name, tmp_env->content);
 			else
-				printf("declare -x %s=\n", tmp_env->name);
+				printf("declare -x %s\n", tmp_env->name);
 			tmp_env = tmp_env->next;
 		}
 	}
 	while (tmp->arg[i])
 	{
 		arg = tmp->arg[i];
-		delete_env(shell, ft_substr(arg, 0, ft_strchr(arg, '=') - arg));
-		ft_add_back_env(&shell->env, ft_lstnew_env(ft_strchr(arg, '=') + 1 \
-		, ft_substr(arg, 0, ft_strchr(arg, '=') - arg)));
+		if(verif_arg_env(arg) != 'a')
+			printf("%c caractere invalide\n", verif_arg_env(arg));
+		else if (strchr(arg, '='))
+		{
+			delete_env(shell, ft_substr(arg, 0, ft_strchr(arg, '=') - arg));
+			ft_add_back_env(&shell->env, ft_lstnew_env(ft_strchr(arg, '=') + 1 \
+			, ft_substr(arg, 0, ft_strchr(arg, '=') - arg)));
+		}
+		else if(exist_env(shell, arg) == 0)
+			ft_add_back_env(&shell->env, ft_lstnew_env(NULL, arg));
 		i++;
 	}
-	exit(0);
 }
 
 void	fonction_unset(t_shell *shell)
@@ -125,9 +147,10 @@ void	fonction_unset(t_shell *shell)
 	i = -1;
 	if (!shell->list_cmd->arg[1])
 		return ;
+	else if(verif_arg_env(shell->list_cmd->arg[0]) != 'a')
+		printf("%c caractere invalide\n", verif_arg_env(shell->list_cmd->arg[0]));
 	while (shell->list_cmd->arg[++i])
 		delete_env(shell, shell->list_cmd->arg[i]);
-	exit(0);
 }
 
 void	fonction_pwd(t_shell *shell)
@@ -138,7 +161,6 @@ void	fonction_pwd(t_shell *shell)
 	printf("act_pwd\n");
 	buf = getcwd(NULL, 0);
 	printf("%s\n", buf);
-	exit(0);
 }
 
 void	fonction_echo(t_shell *shell)
@@ -163,7 +185,6 @@ void	fonction_echo(t_shell *shell)
 	}
 	else
 		printf("\n");
-	exit(0);
 }
 
 void	modif_env(t_shell *shell, char *name, char *new_content)
@@ -208,11 +229,7 @@ void	fonction_cd(t_shell *shell)
 	else if (tmp[1][0] == '~')
 		tmp[1] = ft_strjoin(getenv("HOME"), tmp[1] + 1);
 	if (chdir(tmp[1]) == -1)
-	{
 		printf(": cd: %s: No such file or directory\n", tmp[1]);
-		exit(1);
-	}
-	exit(2);
 }
 
 void	fonction_execve(t_shell *shell)
@@ -221,6 +238,7 @@ void	fonction_execve(t_shell *shell)
 
 	printf("act_execve\n");
 	(void)shell;
+	init_dup_file(shell);	
 	tmp = shell->list_cmd;
 	if (execve(tmp->cmd, tmp->arg, shell->tab_env) == -1)
 		exit(1);

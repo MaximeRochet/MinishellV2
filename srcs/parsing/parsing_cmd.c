@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing_cmd.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/19 16:29:35 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/02 12:38:19 by cmasse           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/minishell.h"
 
 void	ft_remove_quote_cmd_next(char *tmp_str, int a, int y, int j)
@@ -99,7 +87,8 @@ void	ft_path_cmd_next(int i, char **tab_path, t_list_cmd	*tmp_str)
 
 	y = 0;
 	while (tab_path[y])
-	{	
+	{
+			
 		tab_path[y] = ft_strjoin(tab_path[y], "/" );
 		path_cmd = ft_strjoin(tab_path[y], tmp_str->arg[i]);
 		if (access(path_cmd, F_OK) == 0)
@@ -122,21 +111,21 @@ void	ft_path_cmd_next(int i, char **tab_path, t_list_cmd	*tmp_str)
 void	ft_path_cmd(t_shell *shell)
 {
 	int			i;
-	t_list_cmd	*tmp_str;
+	t_list_cmd	*tmp_lst;
 	char		**tab_path;
 
-	tmp_str = shell->list_cmd;
+	tmp_lst = shell->list_cmd;
 	tab_path = ft_split(ft_get_env(shell, "PATH"), ':');
 	i = 0;
-	while (tmp_str)
+	while (tmp_lst)
 	{
 		i = 0;
-		while (tmp_str->arg[i] && tmp_str->cmd == NULL)
+		while (tmp_lst->arg[i] && tmp_lst->cmd == NULL)
 		{
-			ft_path_cmd_next(i, tab_path, tmp_str);
+			ft_path_cmd_next(i, tab_path, tmp_lst);
 			i++;
 		}
-		tmp_str = tmp_str->next;
+		tmp_lst = tmp_lst->next;
 	}
 	return ;
 }

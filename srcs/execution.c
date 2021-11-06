@@ -61,6 +61,17 @@ int find_function_exit(t_shell *shell)
 	exit(1);
 }
 
+int init_dup_file(t_shell *shell)
+{
+	if(shell->list_cmd->redir_in > 0)
+		dup2(shell->list_cmd->redir_in, STDIN_FILENO);
+	if(shell->list_cmd->redir_out > 0)
+		dup2(shell->list_cmd->redir_out, STDOUT_FILENO);
+	if (shell->list_cmd->redir_out > 0 || shell->list_cmd->redir_in > 0)
+		return(1);
+	return(0);
+}
+
 int find_function(t_shell *shell)
 { 
 	t_fonc	tab_f[] = {
@@ -70,9 +81,10 @@ int find_function(t_shell *shell)
 		{"execve", &fonction_execve}};
 	int		i;
 	char	*cmd;
-
+	
+	init_dup_file(shell);
 	cmd = shell->list_cmd->arg[0];
-	i = 0;
+	i = (shell->list_cmd->redir_out > 0 || shell->list_cmd->redir_in > 0)*6;
 	ft_replace_ret_values(shell);
 	while (ft_strcmp(tab_f[i].name, cmd) != 0 && \
 			ft_strcmp(tab_f[i].name, "execve") != 0)
@@ -150,23 +162,25 @@ void	pipex(t_shell *shell)
 
 int	execution(t_shell *shell)
 {
-	//	int pid = 0;
-//	if(shell->size_list_cmd == 1)
-//	{
-	//	pid = fork();
-	//	if(pid < 0)
-	//		return(0);
-	//	else if(pid != 0)
-	//	{
-	//		ft_ret_values(shell, pid);
-		//	waitpid(pid,0,0);
-	//		return(0);
-	//	}
-	//	else
-		find_function(shell);
-	
-	if (shell->size_list_cmd > 1)
+	int pid = 0;
+	if(is_builtin(shell->list_cmd->arg[0]) && shell->size_list_cmd == 1 && 
+	shell->list_cmd->redir_out == 0 && shell->list_cmd->redir_in == 0)
+		find_function(shell);	
+	else if(shell->size_list_cmd == 1)
+	{
+		pid = fork();
+		if(pid < 0)
+			return(0);
+		else if(pid != 0)
+		{
+			ft_ret_values(shell, pid);
+			waitpid(pid,0,0);
+			return(0);
+		}
+		else
+			find_function(shell);
+	}
+	else if (shell->size_list_cmd > 1)
 		pipex(shell);
-	dprintf(1, "PIPEX2\n");
 	return (0);
 }
