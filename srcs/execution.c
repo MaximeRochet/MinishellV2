@@ -32,9 +32,12 @@ void	ft_replace_ret_values(t_shell *shell)
 
 int	is_builtin(char *s)
 {
-	if (ft_strcmp("cd", s) && ft_strcmp("echo", s) && \
-	ft_strcmp("env", s) && ft_strcmp("export", s) && \
-	ft_strcmp("pwd", s) && ft_strcmp("unset", s))
+	if (ft_strncmp("cd", s, ft_strlen(s)) && \
+		 ft_strncmp("echo", s, ft_strlen(s)) && \
+		 ft_strncmp("env", s, ft_strlen(s)) && \
+		 ft_strncmp("export", s, ft_strlen(s)) && \
+		 ft_strncmp("pwd", s, ft_strlen(s)) && \
+		 ft_strncmp("unset", s, ft_strlen(s)))
 		return (0);
 	return (1);
 }
@@ -52,7 +55,7 @@ int find_function_exit(t_shell *shell)
 	cmd = shell->list_cmd->arg[0];
 	i = 0;
 	ft_replace_ret_values(shell);
-	while (ft_strcmp(tab_f[i].name, cmd) != 0 &&
+	while (ft_strncmp(tab_f[i].name, cmd, strlen(tab_f[i].name)+1) != 0 &&
 			ft_strcmp(tab_f[i].name, "execve") != 0)
 	{
 		i++;
@@ -86,7 +89,7 @@ int find_function(t_shell *shell)
 	cmd = shell->list_cmd->arg[0];
 	i = (shell->list_cmd->redir_out > 0 || shell->list_cmd->redir_in > 0)*6;
 	ft_replace_ret_values(shell);
-	while (ft_strcmp(tab_f[i].name, cmd) != 0 && \
+	while (ft_strncmp(tab_f[i].name, cmd, strlen(tab_f[i].name)+1) != 0 &&
 			ft_strcmp(tab_f[i].name, "execve") != 0)
 		i++;
 	tab_f[i].fct(shell);

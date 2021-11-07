@@ -13,7 +13,7 @@ void	ft_ret_values_next(t_shell *shell, int pid)
 	}
 	else if (tmp[1][0] == '~')
 		tmp[1] = ft_strjoin(getenv("HOME"), tmp[1] + 1);
-	chdir(tmp[1]);
+	//chdir(tmp[1]);
 }
 
 void	ft_ret_values(t_shell *shell, int pid)
