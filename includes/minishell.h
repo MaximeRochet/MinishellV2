@@ -129,6 +129,8 @@ int			find_function_exit(t_shell *shell);
 int			is_builtin(char *s);
 void			ft_replace_ret_values(t_shell *shell);
 int			init_dup_file(t_shell *shell);
+void			here_doc(char *s);
+
 
 //BUILT-IN
 void		fonction_cd(t_shell *shell);

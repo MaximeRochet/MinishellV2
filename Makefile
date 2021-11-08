@@ -31,6 +31,8 @@ SRCS_NAME = liste.c minishell.c \
 			recup_prompt.c execution.c \
 			fonction.c space.c signal.c \
 			free.c \
+
+
 			$(SRCS_UTILS) $(SRCS_PARSING)
 
 SRCS_UTILS = $(addprefix $(UTILS_PATH)/, utils.c utils_2.c)

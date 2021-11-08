@@ -28,7 +28,7 @@ int	main(int ac, char **av, char **env)
 		if (shell->str_cmd && strlen(shell->str_cmd) > 0)
 		{	
 			add_history(shell->str_cmd);
-			if (parsing(shell) == 0)
+			if (parsing(shell) == 0 && shell->quit == 0)
 			{
 				print_list_cmd(shell->list_cmd);
 				shell->ret_value = i;
