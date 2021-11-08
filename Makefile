@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+         #
+#    By: mrochet <mrochet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 16:16:40 by cerisemasse       #+#    #+#              #
-#    Updated: 2021/11/06 10:41:05 by cerisemasse      ###   ########.fr        #
+#    Updated: 2021/11/08 18:04:44 by mrochet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,15 +30,16 @@ SRCS_NAME = liste.c minishell.c \
 			print_struct.c \
 			recup_prompt.c execution.c \
 			fonction.c space.c signal.c \
-			free.c \
-
-
+			free.c heredoc.c fonction_exit.c \
 			$(SRCS_UTILS) $(SRCS_PARSING)
 
 SRCS_UTILS = $(addprefix $(UTILS_PATH)/, utils.c utils_2.c)
 SRCS_PARSING = $(addprefix $(PARSING_PATH)/, parsing_init.c parsing_var.c parsing_pipe.c parsing_cmd.c parsing_redirection.c)
 
 LIB_NAME = ./minishell.h 
+
+RL_FLAG     = -lreadline -L /Users/$(shell whoami)/.brew/opt/readline/lib
+RL_OBJ      = -I/Users/$(shell whoami)/.brew/opt/readline/include
 
 SRCS_PATH = srcs
 UTILS_PATH = utils
@@ -64,13 +65,13 @@ $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c $(LIB) $(LIB_FT)
 			@mkdir -p $(OBJS_PATH)
 			@mkdir -p $(OBJS_PATH)/utils
 			@mkdir -p $(OBJS_PATH)/parsing
-			@$(CC) $(CFLAGS) -c $< -o $@ -I $(LIB_PATH)
+			@$(CC) $(CFLAGS) $(RL_OBJ) -c $< -o $@ -I $(LIB_PATH)
 			
 all		:	librairies
 			@$(MAKE) $(NAME)
 
 $(NAME):	${OBJS}
-			@$(CC) ${CFLAGS} ${OBJS} libft/*.o -o ${NAME} ${FSAN} -Llibft -lft -lreadline
+			@$(CC) ${CFLAGS} ${OBJS} libft/*.o -o ${NAME} ${FSAN} -Llibft -lft $(RL_FLAG)
 			@echo "\x1b[32m 🍒 Compilation effectuée 🍒\x1b[0m" 
 
 librairies:

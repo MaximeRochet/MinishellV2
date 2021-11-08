@@ -55,8 +55,12 @@ void    ft_fill_redir(t_shell *shell)
 		i=0;
 		while(shell->list_cmd->arg[i])
 		{
+
 			if(!shell->list_cmd->arg[i+1])
-			       return;	
+			{
+				shell->list_cmd = tmp;
+			    return;
+			}	
 			else if(shell->list_cmd->arg[i][0] == '>')
 				fill_out(shell, i--);
 			else if(shell->list_cmd->arg[i][0] == '<')
@@ -66,4 +70,5 @@ void    ft_fill_redir(t_shell *shell)
 		shell->list_cmd = shell->list_cmd->next;
 	}
 	shell->list_cmd = tmp;
+	print_list_cmd(shell->list_cmd);
 }

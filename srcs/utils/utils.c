@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mrochet <mrochet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 17:09:20 by cerisemasse       #+#    #+#             */
-/*   Updated: 2021/11/02 12:19:36 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/08 15:25:19 by mrochet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 		while (s1_temp[i] && s2_temp[i])
 		{
 			if (s1_temp[i] != s2_temp[i] || s1_temp[i] == '\0')
-				return (s1_temp[i] - s2_temp[i]);
+				return (1);
 			i++;
 		}
 		return (0);
@@ -112,7 +112,7 @@ char	*ft_get_env(t_shell *shell, char *name)
 	tmp_env = shell->env;
 	while (tmp_env)
 	{
-		if (!ft_strcmp(tmp_env->name, name))
+		if (!ft_strncmp(tmp_env->name, name, ft_strlen(name) + 1))
 			tmp = tmp_env->content;
 		tmp_env = tmp_env->next;
 	}

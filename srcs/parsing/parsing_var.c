@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mrochet <mrochet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:19:47 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/06 10:35:12 by cerisemasse      ###   ########.fr       */
+/*   Updated: 2021/11/08 21:35:58 by mrochet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ char	*ft_paste_name_var(int start, char *var, t_shell *shell, int i)
 	int		y;
 	int		end;
 
-	str = (char *)calloc(sizeof(char), \
+	str = (char *)ft_calloc(sizeof(char), \
 	ft_strlen(shell->str_cmd) + ft_strlen(var));
 	y = 0;
-	while (i++ < start)
+	while (++i < start)
 		str[i] = shell->str_cmd[i];
 	end = i;
 	while (var[y])
@@ -89,7 +89,7 @@ void	ft_replace_var(t_shell *shell, int i)
 		return ;
 	}
 	str = ft_strdup(ft_delete_var(y - 1, i, shell));
-	str = ft_strdup(ft_paste_name_var(y - 1, var, shell, 0));
+	str = ft_strdup(ft_paste_name_var(y - 1, var, shell, -1));
 	shell->str_cmd = str;
 	free(str);
 }
@@ -111,7 +111,7 @@ int	ft_check_variable(t_shell *shell, int i)
 			quote = 1;
 		else if (str[i] == '\'')
 			quote = 0;
-		if (str[i] == '$' && quote == 0 && str[i + 1] != '?')
+		if (str[i] == '$' && quote == 0 && str[i + 1] != '?' && str[i + 1])
 		{
 			ft_replace_var(shell, i);
 			if (shell->str_cmd && ft_strlen(shell->str_cmd) == 0)

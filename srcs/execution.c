@@ -13,7 +13,7 @@ void	ft_replace_ret_values(t_shell *shell)
 	i = 0;
 	while (tmp[i])
 	{
-		if (ft_strchr(tmp[i], '$'))
+		if (ft_strstr(tmp[i], "$?") )
 		{
 			j = -1;
 			ret = ft_itoa(shell->ret_value);
@@ -42,12 +42,12 @@ int	is_builtin(char *s)
 	return (1);
 }
 
-int find_function_exit(t_shell *shell)
+void find_function_exit(t_shell *shell)
 {
 	t_fonc	tab_f[] = {
-		{"cd", &fonction_cd}, {"echo", &fonction_echo}, \
-		{"env", &fonction_env}, {"export", &fonction_export}, \
-		{"pwd", &fonction_pwd}, {"unset", &fonction_unset}, \
+		{"cd", &fonction_cd_exit}, {"echo", &fonction_echo_exit}, \
+		{"env", &fonction_env_exit}, {"export", &fonction_export_exit}, \
+		{"pwd", &fonction_pwd_exit}, {"unset", &fonction_unset_exit}, \
 		{"execve", &fonction_execve}};
 	int		i;
 	char 	*cmd;
@@ -61,7 +61,6 @@ int find_function_exit(t_shell *shell)
 		i++;
 	}
 	tab_f[i].fct(shell);
-	exit(1);
 }
 
 int init_dup_file(t_shell *shell)
@@ -98,15 +97,30 @@ int find_function(t_shell *shell)
 
 void	child_process_start(t_shell *shell, int i)
 {
-	dup2(shell->pipes[i][1], STDOUT_FILENO);
+	if(shell->list_cmd->redir_out)	
+		dup2(shell->list_cmd->redir_out, STDOUT_FILENO);
+	else 
+		dup2(shell->pipes[i][1], STDOUT_FILENO);
+	if(shell->list_cmd->redir_out)
+		close(shell->list_cmd->redir_out);
 	close (shell->pipes[i][1]);
 	find_function_exit(shell);
 }
 
 void	child_process_middle(t_shell *shell, int i)
 {
-	dup2(shell->pipes[i - 1][0], STDIN_FILENO);
-	dup2(shell->pipes[i][1], STDOUT_FILENO);
+	if(shell->list_cmd->redir_in)	
+		dup2(shell->list_cmd->redir_in, STDIN_FILENO);
+	else 
+		dup2(shell->pipes[i - 1][0], STDIN_FILENO);
+	if(shell->list_cmd->redir_out)	
+		dup2(shell->list_cmd->redir_out, STDOUT_FILENO);
+	else 
+		dup2(shell->pipes[i][1], STDOUT_FILENO);
+	if (shell->list_cmd->redir_in)
+		close(shell->list_cmd->redir_in);
+	if (shell->list_cmd->redir_out)
+		close(shell->list_cmd->redir_out);
 	close(shell->pipes[i][1]);
 	close(shell->pipes[i - 1][0]);
 	find_function_exit(shell);
@@ -114,7 +128,12 @@ void	child_process_middle(t_shell *shell, int i)
 
 void	child_process_end(t_shell *shell, int i)
 {
-	dup2(shell->pipes[i - 1][0], STDIN_FILENO);
+	if(shell->list_cmd->redir_in)	
+		dup2(shell->list_cmd->redir_in, STDIN_FILENO);
+	else 
+		dup2(shell->pipes[i - 1][0], STDIN_FILENO);
+	if (shell->list_cmd->redir_in)
+		close(shell->list_cmd->redir_in);
 	close(shell->pipes[i - 1][0]);
 	close(shell->pipes[i][1]);
 	close(shell->pipes[i][0]);
@@ -151,7 +170,10 @@ void	pipex(t_shell *shell)
 		if (pid < 0)
 			return ;
 		else if (pid > 0)
-			close(shell->pipes[i][1]);
+			{
+				close(shell->pipes[i][1]);
+				ft_ret_values(shell, pid);
+			}
 		else
 			child_process(shell, i);
 		shell->list_cmd = shell->list_cmd->next;
@@ -168,7 +190,7 @@ int	execution(t_shell *shell)
 	int pid = 0;
 	if(is_builtin(shell->list_cmd->arg[0]) && shell->size_list_cmd == 1 && 
 	shell->list_cmd->redir_out == 0 && shell->list_cmd->redir_in == 0)
-		find_function(shell);	
+		find_function(shell);
 	else if(shell->size_list_cmd == 1)
 	{
 		pid = fork();
@@ -176,9 +198,9 @@ int	execution(t_shell *shell)
 			return(0);
 		else if(pid != 0)
 		{
+			// waitpid(pid,0,0);
 			ft_ret_values(shell, pid);
-			waitpid(pid,0,0);
-			return(0);
+			return (0);
 		}
 		else
 			find_function(shell);

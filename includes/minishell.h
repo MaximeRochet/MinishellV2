@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mrochet <mrochet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:50:58 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/06 10:39:54 by cerisemasse      ###   ########.fr       */
+/*   Updated: 2021/11/08 20:14:11 by mrochet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_shell
 	int			*pids;
 	int			quit;
 	int			ret_value;
+	int			false_ret_value;
 	char		*mssg_erreur;
 	char		**tab_env;	
 
@@ -121,11 +122,17 @@ void		ft_fill_redir(t_shell *shell);
 //FONCTION PRINCIPALES
 char		*recup_prompt(void);
 char		*shearch_in_env(t_list_env *env, char *name);
+void	modif_env(t_shell *shell, char *name, char *new_content);
 
+int verif_arg_env(char *str);
+
+void	delete_env(t_shell *shell, char *name);
+
+int exist_env(t_shell *shell, char *arg);
 //EXECUTION
 int			execution(t_shell *shell);
 int			find_function(t_shell *shell);
-int			find_function_exit(t_shell *shell);
+void			find_function_exit(t_shell *shell);
 int			is_builtin(char *s);
 void			ft_replace_ret_values(t_shell *shell);
 int			init_dup_file(t_shell *shell);
@@ -143,8 +150,19 @@ void		fonction_execve(t_shell *shell);
 void		ft_ret_values(t_shell *shell, int pid);
 void		ft_signal_handler(int sig);
 
+//FONCTION_EXIT
 
+
+void	fonction_env_exit(t_shell *shell);
+void	fonction_export_exit(t_shell *shell);
+void	fonction_unset_exit(t_shell *shell);
+void	fonction_pwd_exit(t_shell *shell);
+void	fonction_echo_exit(t_shell *shell);
+void	fonction_cd_exit(t_shell *shell);
 
 // FREE
 void    ft_free(char **s);
+
+
+void rm_heredoc(t_shell *shell);
 #endif	
