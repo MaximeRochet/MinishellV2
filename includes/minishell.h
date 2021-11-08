@@ -6,7 +6,7 @@
 /*   By: mrochet <mrochet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:50:58 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/08 14:37:38 by mrochet          ###   ########.fr       */
+/*   Updated: 2021/11/08 19:41:47 by mrochet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_shell
 	int			*pids;
 	int			quit;
 	int			ret_value;
+	int			false_ret_value;
 	char		*mssg_erreur;
 	char		**tab_env;	
 
@@ -123,10 +124,15 @@ char		*recup_prompt(void);
 char		*shearch_in_env(t_list_env *env, char *name);
 void	modif_env(t_shell *shell, char *name, char *new_content);
 
+int verif_arg_env(char *str);
+
+void	delete_env(t_shell *shell, char *name);
+
+int exist_env(t_shell *shell, char *arg);
 //EXECUTION
 int			execution(t_shell *shell);
 int			find_function(t_shell *shell);
-int			find_function_exit(t_shell *shell);
+void			find_function_exit(t_shell *shell);
 int			is_builtin(char *s);
 void			ft_replace_ret_values(t_shell *shell);
 int			init_dup_file(t_shell *shell);
@@ -144,7 +150,15 @@ void		fonction_execve(t_shell *shell);
 void		ft_ret_values(t_shell *shell, int pid);
 void		ft_signal_handler(int sig);
 
+//FONCTION_EXIT
 
+
+void	fonction_env_exit(t_shell *shell);
+void	fonction_export_exit(t_shell *shell);
+void	fonction_unset_exit(t_shell *shell);
+void	fonction_pwd_exit(t_shell *shell);
+void	fonction_echo_exit(t_shell *shell);
+void	fonction_cd_exit(t_shell *shell);
 
 // FREE
 void    ft_free(char **s);

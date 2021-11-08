@@ -30,10 +30,11 @@ int	main(int ac, char **av, char **env)
 			add_history(shell->str_cmd);
 			if (parsing(shell) == 0 && shell->quit == 0)
 			{
-				print_list_cmd(shell->list_cmd);
+				
 				shell->ret_value = i;
 				execution(shell);
 				i = shell->ret_value;
+				shell->ret_value = 0;
 			}
 			shell->list_cmd = NULL;
 			//ft_format_struct(shell);
