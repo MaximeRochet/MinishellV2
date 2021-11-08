@@ -6,7 +6,7 @@
 /*   By: mrochet <mrochet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:19:47 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/08 15:11:41 by mrochet          ###   ########.fr       */
+/*   Updated: 2021/11/08 21:35:58 by mrochet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	ft_check_variable(t_shell *shell, int i)
 			quote = 1;
 		else if (str[i] == '\'')
 			quote = 0;
-		if (str[i] == '$' && quote == 0 && str[i + 1] != '?')
+		if (str[i] == '$' && quote == 0 && str[i + 1] != '?' && str[i + 1])
 		{
 			ft_replace_var(shell, i);
 			if (shell->str_cmd && ft_strlen(shell->str_cmd) == 0)

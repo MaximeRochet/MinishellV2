@@ -17,7 +17,7 @@ int	main(int ac, char **av, char **env)
 	//  return (0);
 	//}
 	i = 0;
-	while (!shell->str_cmd || ft_strncmp(shell->str_cmd, "exit", 4))
+	while (!shell->str_cmd || ft_strncmp(shell->str_cmd, "exit", 5))
 	{
 		shell->prompt = recup_prompt();
 		signal(SIGINT, ft_signal_handler);

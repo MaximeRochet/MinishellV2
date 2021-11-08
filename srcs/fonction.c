@@ -41,6 +41,7 @@ void	fonction_env(t_shell *shell)
 {
 	t_list_env	*tmp;
 
+	shell->ret_value = 0;
 	tmp = shell->env;
 	printf("act_env\n");
 	if (shell->list_cmd->arg[1])
@@ -104,6 +105,7 @@ void	fonction_export(t_shell *shell)
 	t_list_cmd	*tmp;
 	t_list_env	*tmp_env;
 
+	shell->ret_value = 0;
 	printf("act_export\n");
 	i = 1;
 	tmp_env = shell->env;
@@ -146,6 +148,7 @@ void	fonction_unset(t_shell *shell)
 {
 	int	i;
 
+	shell->ret_value = 0;
 	(void)shell;
 	printf("act_unset\n");
 	i = -1;
@@ -164,6 +167,7 @@ void	fonction_pwd(t_shell *shell)
 {
 	char	*buf;
 
+	shell->ret_value = 0;
 	(void)shell;
 	printf("act_pwd\n");
 	buf = getcwd(NULL, 0);
@@ -174,6 +178,7 @@ void	fonction_echo(t_shell *shell)
 {
 	int	i;
 
+	shell->ret_value = 0;
 	(void)shell;
 	printf("act_echo\n");
 	i = 1;
@@ -214,6 +219,7 @@ void	fonction_cd(t_shell *shell)
 	char	*old;
 	int		ret;
 
+	shell->ret_value = 0;
 	printf("act_cd\n");
 	old = getcwd(NULL, 0);
 	tmp = shell->list_cmd->arg;
@@ -244,8 +250,9 @@ void	fonction_execve(t_shell *shell)
 {
 	t_list_cmd	*tmp;
 
+	shell->ret_value = 0;
 	printf("act_execve\n");
-	if(shell->list_cmd->arg[0]== NULL)
+	if(shell->list_cmd->arg[0]== NULL || !strncmp(shell->list_cmd->arg[0], "exit", 5))
 		exit (1);
 	if (shell->list_cmd->cmd == NULL && !is_builtin(shell->list_cmd->arg[0]))
 	{

@@ -93,8 +93,7 @@ int	parsing(t_shell *shell)
 	ft_remove_quote_cmd(shell);
 	//remplissage de la commande
 	ft_path_cmd(shell);
-
- //print_list_cmd(shell->list_cmd);
+ 	print_list_cmd(shell->list_cmd);
 	// if (shell->list_cmd->cmd == NULL && !is_builtin(shell->list_cmd->arg[0]))
 	// 	{
 	// 	if (ft_check_exist_path(shell) == -1)

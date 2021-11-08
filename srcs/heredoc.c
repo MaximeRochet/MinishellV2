@@ -29,23 +29,3 @@ void    here_doc(char *s)
 	free(line);
 	close(fd);
 }
-
-void rm_heredoc()
-{
-		char *tab[2];
-		tab[0] = "rm";
-		tab[1] = ".heredoc";
-
-		pid = fork();
-		if(pid < 0)
-			return(0);
-		else if(pid != 0)
-		{
-			waitpid(pid,0,0);
-			ft_ret_values(shell, pid);
-			return (0);
-		}
-		else
-			execve("/bin/rm", tab, NULL);
-	}
-}

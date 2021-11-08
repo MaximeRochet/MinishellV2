@@ -6,7 +6,7 @@
 /*   By: mrochet <mrochet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:50:58 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/08 19:41:47 by mrochet          ###   ########.fr       */
+/*   Updated: 2021/11/08 20:14:11 by mrochet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,4 +162,7 @@ void	fonction_cd_exit(t_shell *shell);
 
 // FREE
 void    ft_free(char **s);
+
+
+void rm_heredoc(t_shell *shell);
 #endif	

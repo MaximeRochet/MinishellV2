@@ -13,7 +13,7 @@ void	ft_replace_ret_values(t_shell *shell)
 	i = 0;
 	while (tmp[i])
 	{
-		if (ft_strchr(tmp[i], '$'))
+		if (ft_strstr(tmp[i], "$?") )
 		{
 			j = -1;
 			ret = ft_itoa(shell->ret_value);
