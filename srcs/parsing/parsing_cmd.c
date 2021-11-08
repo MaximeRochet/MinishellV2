@@ -127,5 +127,6 @@ void	ft_path_cmd(t_shell *shell)
 		}
 		tmp_lst = tmp_lst->next;
 	}
+	ft_free(tab_path);
 	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:28:19 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/02 12:30:23 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/06 10:44:49 by cerisemasse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,5 @@ void	ft_split_arg_str(t_shell *shell, char **str_split)
 		ft_add_back_cmd(&shell->list_cmd, ft_new_cmd(split));
 		i++;
 	}
+//	ft_free(split);
 }
