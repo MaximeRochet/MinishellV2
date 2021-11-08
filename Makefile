@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+         #
+#    By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 16:16:40 by cerisemasse       #+#    #+#              #
-#    Updated: 2021/11/03 15:48:03 by mrochet          ###   ########lyon.fr    #
+#    Updated: 2021/11/06 10:41:05 by cerisemasse      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS_NAME = liste.c minishell.c \
 			print_struct.c \
 			recup_prompt.c execution.c \
 			fonction.c space.c signal.c \
+			free.c \
 			$(SRCS_UTILS) $(SRCS_PARSING)
 
 SRCS_UTILS = $(addprefix $(UTILS_PATH)/, utils.c utils_2.c)

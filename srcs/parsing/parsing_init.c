@@ -40,6 +40,7 @@ int	ft_valide_quote_str(t_shell *shell)
 		}
 		i++;
 	}
+//	free(str);
 	return (quote);
 }
 
@@ -78,6 +79,7 @@ int	parsing(t_shell *shell)
 	//split arg
 	ft_split_arg_str(shell, str_split);
 	//taille de la liste
+	ft_free(str_split);
 	shell->size_list_cmd = lstsize(shell->list_cmd);
 	//remplissage des redirections
 	ft_fill_redir(shell);

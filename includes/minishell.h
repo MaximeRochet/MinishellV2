@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:50:58 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/03 15:46:09 by mrochet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/06 10:39:54 by cerisemasse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,4 +141,8 @@ void		fonction_execve(t_shell *shell);
 void		ft_ret_values(t_shell *shell, int pid);
 void		ft_signal_handler(int sig);
 
+
+
+// FREE
+void    ft_free(char **s);
 #endif	
