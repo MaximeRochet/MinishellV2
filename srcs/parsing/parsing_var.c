@@ -6,7 +6,7 @@
 /*   By: mrochet <mrochet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 16:19:47 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/08 21:35:58 by mrochet          ###   ########.fr       */
+/*   Updated: 2021/11/08 23:34:54 by mrochet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,10 @@ char	*ft_delete_var(int start, int end, t_shell *shell)
 	return (str);
 }
 
-void	ft_replace_var(t_shell *shell, int i)
+void	ft_replace_var(t_shell *shell, int i, int y)
 {
 	char	*str;
 	char	*var;
-	int		y;
 	int		count;
 
 	str = ft_strdup(shell->str_cmd);
@@ -113,13 +112,12 @@ int	ft_check_variable(t_shell *shell, int i)
 			quote = 0;
 		if (str[i] == '$' && quote == 0 && str[i + 1] != '?' && str[i + 1])
 		{
-			ft_replace_var(shell, i);
+			ft_replace_var(shell, i, y);
 			if (shell->str_cmd && ft_strlen(shell->str_cmd) == 0)
 				return (-1);
 			str = ft_strdup(shell->str_cmd);
 		}
 		i++;
 	}
-//	free(str);
 	return (0);
 }
