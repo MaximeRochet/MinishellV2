@@ -5,17 +5,18 @@ void	init_env(char **env, t_shell *shell)
 	int	i;
 
 	i = 0;
-	if(!shell->tab_env)
+	if (!shell->tab_env)
 	{
 		while (env[i])
 		{
-			ft_add_back_env(&shell->env, ft_lstnew_env(ft_strchr(env[i], '=') + 1 \
-						, ft_substr(env[i], 0, ft_strchr(env[i], '=') - env[i])));
+			ft_add_back_env(&shell->env, ft_lstnew_env(\
+			ft_strchr(env[i], '=') + 1, ft_substr(env[i], \
+			0, ft_strchr(env[i], '=') - env[i])));
 			i++;
 		}
 		shell->tab_env = env;
 	}
-	modif_env(shell, "SHLVL", ft_itoa(ft_atoi(ft_get_env(shell, "SHLVL"))+ 1));
+	modif_env(shell, "SHLVL", ft_itoa(ft_atoi(ft_get_env(shell, "SHLVL")) + 1));
 	return ;
 }
 
@@ -44,7 +45,6 @@ int	ft_valide_quote_str(t_shell *shell)
 		}
 		i++;
 	}
-//	free(str);
 	return (quote);
 }
 
@@ -76,33 +76,13 @@ int	parsing(t_shell *shell)
 	}
 	if (ft_check_variable(shell, 0) == -1)
 		return (-1);
-	//replace pipes
 	shell->str_cmd = ft_replace_pipe_str(shell->str_cmd, '|');
-	//split par pipe
 	str_split = ft_split(shell->str_cmd, '\200');
-	//split arg
 	ft_split_arg_str(shell, str_split);
-	//taille de la liste
 	ft_free(str_split);
 	shell->size_list_cmd = lstsize(shell->list_cmd);
-	
 	ft_fill_redir(shell);
-	//remplissage des redirections
-	
-	//suppression des quotes
 	ft_remove_quote_cmd(shell);
-	//remplissage de la commande
 	ft_path_cmd(shell);
- 	print_list_cmd(shell->list_cmd);
-	// if (shell->list_cmd->cmd == NULL && !is_builtin(shell->list_cmd->arg[0]))
-	// 	{
-	// 	if (ft_check_exist_path(shell) == -1)
-	// 	{
-	// 		//shell->ret_value = 127;
-	// 		//printf("ret=%d\n", shell->ret_value);
-	// 		printf("%s: command not found\n", shell->list_cmd->arg[0]);
-	// 		return (-1);
-	// 	}
-	// }
 	return (0);
 }

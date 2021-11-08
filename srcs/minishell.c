@@ -1,5 +1,25 @@
 #include "../includes/minishell.h"
 
+int ft_exit(t_shell *shell)
+{
+	char **tab;
+	int i;
+
+	i = 0;
+	tab = ft_split(shell->str_cmd, ' ');
+	if(tab[1])
+	{
+		printf("exit\n");	
+		while(ft_isalpha(tab[1][i]))
+			i++;
+		if (!ft_isdigit(tab[1][i]))
+			printf("exit: %s: numeric argument required\n", tab[1]);
+		return (0);
+	}
+	printf("exit\n");
+	return(0);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_shell	*shell;
@@ -17,7 +37,7 @@ int	main(int ac, char **av, char **env)
 	//  return (0);
 	//}
 	i = 0;
-	while (!shell->str_cmd || ft_strncmp(shell->str_cmd, "exit", 5))
+	while (!shell->str_cmd || ft_strncmp(shell->str_cmd, "exit", 4))
 	{
 		shell->prompt = recup_prompt();
 		signal(SIGINT, ft_signal_handler);
@@ -25,7 +45,7 @@ int	main(int ac, char **av, char **env)
 		shell->str_cmd = readline(shell->prompt);
 		if (!shell->str_cmd)
 			break ;
-		if (shell->str_cmd && strlen(shell->str_cmd) > 0)
+		if (shell->str_cmd && ft_strlen(shell->str_cmd) > 0 && ft_strncmp(shell->str_cmd, "exit", 4))
 		{	
 			add_history(shell->str_cmd);
 			if (parsing(shell) == 0 && shell->quit == 0)
@@ -41,7 +61,7 @@ int	main(int ac, char **av, char **env)
 			//free(shell.str_cmd);
 		}
 	}
-	dprintf(1, "exit");
+	ft_exit(shell);
 	free(shell->str_cmd);
 	return (0);
 }

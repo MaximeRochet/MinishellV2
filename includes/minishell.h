@@ -6,7 +6,7 @@
 /*   By: mrochet <mrochet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:50:58 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/08 20:14:11 by mrochet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/08 23:34:21 by mrochet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int			ft_valide_quote_str(t_shell *shell);
 
 // 	PARSING_VAR
 int			ft_check_variable(t_shell *shell, int i);
-void		ft_replace_var(t_shell *shell, int i);
+void		ft_replace_var(t_shell *shell, int i, int y);
 char		*ft_delete_var(int start, int end, t_shell *shell);
 char		*ft_paste_name_var(int start, char *var, t_shell *shell, int i);
 

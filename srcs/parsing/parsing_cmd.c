@@ -88,7 +88,7 @@ void	ft_path_cmd_next(int i, char **tab_path, t_list_cmd	*tmp_str)
 	y = 0;
 	while (tab_path[y])
 	{
-			
+
 		tab_path[y] = ft_strjoin(tab_path[y], "/" );
 		path_cmd = ft_strjoin(tab_path[y], tmp_str->arg[i]);
 		if (access(path_cmd, F_OK) == 0)
