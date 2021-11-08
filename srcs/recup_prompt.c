@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recup_prompt.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mrochet <mrochet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 10:01:26 by mrochet           #+#    #+#             */
-/*   Updated: 2021/10/30 16:38:32 by cerisemasse      ###   ########.fr       */
+/*   Updated: 2021/11/08 15:33:01 by mrochet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*recup_prompt(void)
 
 	user = getenv("USER");
 	folder = ft_strrchr(getcwd(NULL, 0), '/');
-	ret = calloc(sizeof(char), ft_strlen(user) + ft_strlen(folder) + 4);
+	ret = ft_calloc(sizeof(char), ft_strlen(user) + ft_strlen(folder) + 4);
 	strcat(ret, user);
 	strcat(ret, "-");
 	strcat(ret, folder + 1);

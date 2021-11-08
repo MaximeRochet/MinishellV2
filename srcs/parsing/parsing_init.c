@@ -5,13 +5,17 @@ void	init_env(char **env, t_shell *shell)
 	int	i;
 
 	i = 0;
-	while (env[i])
+	if(!shell->tab_env)
 	{
-		ft_add_back_env(&shell->env, ft_lstnew_env(ft_strchr(env[i], '=') + 1 \
-					, ft_substr(env[i], 0, ft_strchr(env[i], '=') - env[i])));
-		i++;
+		while (env[i])
+		{
+			ft_add_back_env(&shell->env, ft_lstnew_env(ft_strchr(env[i], '=') + 1 \
+						, ft_substr(env[i], 0, ft_strchr(env[i], '=') - env[i])));
+			i++;
+		}
+		shell->tab_env = env;
 	}
-	shell->tab_env = env;
+	modif_env(shell, "SHLVL", ft_itoa(ft_atoi(ft_get_env(shell, "SHLVL"))+ 1));
 	return ;
 }
 
@@ -78,6 +82,7 @@ int	parsing(t_shell *shell)
 	str_split = ft_split(shell->str_cmd, '\200');
 	//split arg
 	ft_split_arg_str(shell, str_split);
+	print_list_cmd(shell->list_cmd);
 	//taille de la liste
 	ft_free(str_split);
 	shell->size_list_cmd = lstsize(shell->list_cmd);

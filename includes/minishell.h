@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cerisemasse <cerisemasse@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mrochet <mrochet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:50:58 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/06 10:39:54 by cerisemasse      ###   ########.fr       */
+/*   Updated: 2021/11/08 14:37:38 by mrochet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void		ft_fill_redir(t_shell *shell);
 //FONCTION PRINCIPALES
 char		*recup_prompt(void);
 char		*shearch_in_env(t_list_env *env, char *name);
+void	modif_env(t_shell *shell, char *name, char *new_content);
 
 //EXECUTION
 int			execution(t_shell *shell);

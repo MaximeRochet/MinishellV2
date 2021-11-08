@@ -13,7 +13,6 @@ void	ft_ret_values_next(t_shell *shell, int pid)
 	}
 	else if (tmp[1][0] == '~')
 		tmp[1] = ft_strjoin(getenv("HOME"), tmp[1] + 1);
-	//chdir(tmp[1]);
 }
 
 void	ft_ret_values(t_shell *shell, int pid)
@@ -205,17 +204,18 @@ void	fonction_cd(t_shell *shell)
 {
 	char	**tmp;
 	char	*old;
+	int		ret;
 
 	printf("act_cd\n");
 	old = getcwd(NULL, 0);
 	tmp = shell->list_cmd->arg;
 	(void)shell;
 	if (!tmp[1] || ft_strncmp(tmp[1], "~", 2) == 0)
-		chdir(ft_get_env(shell, "HOME"));
+		ret = chdir(ft_get_env(shell, "HOME"));
 	else if (tmp && tmp[1] && tmp[2])
 		return ;
 	else
-		chdir(tmp[1]);
+		ret = chdir(tmp[1]);
 	modif_env(shell, "OLDPWD", old);
 	modif_env(shell, "PWD", getcwd(NULL, 0));
 	printf("old = %s\n", ft_get_env(shell, "OLDPWD"));
@@ -228,7 +228,7 @@ void	fonction_cd(t_shell *shell)
 	}
 	else if (tmp[1][0] == '~')
 		tmp[1] = ft_strjoin(getenv("HOME"), tmp[1] + 1);
-	if (chdir(tmp[1]) == -1)
+	if (ret == -1)
 		printf(": cd: %s: No such file or directory\n", tmp[1]);
 }
 
