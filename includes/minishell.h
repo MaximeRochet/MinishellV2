@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:50:58 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/09 11:25:55 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/09 15:20:12 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,13 +128,22 @@ void		delete_env(t_shell *shell, char *name);
 int			exist_env(t_shell *shell, char *arg);
 
 //EXECUTION
-int			execution(t_shell *shell);
 int			find_function(t_shell *shell);
 void		find_function_exit(t_shell *shell);
 int			is_builtin(char *s);
 void		ft_replace_ret_values(t_shell *shell);
 int			init_dup_file(t_shell *shell);
-void		here_doc(char *s);
+
+//EXECUTION_DEUX 
+void		child_process_start(t_shell *shell, int i);
+void		child_process_middle(t_shell *shell, int i);
+void		child_process_end(t_shell *shell, int i);
+void		child_process(t_shell *shell, int i);
+
+//EXECUTION_TROIS
+void		pipex(t_shell *shell);
+void		pipex_next(t_shell *shell, int i);
+int			execution(t_shell *shell);
 
 //BUILT-IN
 void		fonction_cd(t_shell *shell);
@@ -155,6 +164,9 @@ void		fonction_pwd_exit(t_shell *shell);
 void		fonction_echo_exit(t_shell *shell);
 void		fonction_cd_exit(t_shell *shell);
 
-// FREE
+//FREE
 void		ft_free(char **s);
+
+//HEREDOC
+void		here_doc(char *s);
 #endif	
