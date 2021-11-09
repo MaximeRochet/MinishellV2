@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fonction_trois.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrochet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 14:30:09 by mrochet           #+#    #+#             */
-/*   Updated: 2021/11/09 14:30:14 by mrochet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/09 15:48:02 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	modif_env(t_shell *shell, char *name, char *new_content)
 
 void	fonction_cd_next(t_shell *shell, char **tmp)
 {
-	shell->ret_value = 1;
-	printf(": cd: %s: No such file or directory\n", tmp[1]);
+	shell->ret_value = 127;
+	printf(": cd: %s: No such file or dlirectory\n", tmp[1]);
 }
 
 void	fonction_cd(t_shell *shell)

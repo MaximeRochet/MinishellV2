@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 11:02:26 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/09 11:02:27 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/09 18:01:41 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,4 @@ void	ft_fill_redir(t_shell *shell)
 		shell->list_cmd = shell->list_cmd->next;
 	}
 	shell->list_cmd = tmp;
-	print_list_cmd(shell->list_cmd);
 }
