@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fonction_deux.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrochet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 14:11:58 by mrochet           #+#    #+#             */
-/*   Updated: 2021/11/09 14:29:43 by mrochet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/09 19:11:32 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	fonction_unset(t_shell *shell)
 
 	shell->ret_value = 0;
 	(void)shell;
-	i = -1;
+	i = 1;
 	if (!shell->list_cmd->arg[1])
 		return ;
 	if (verif_arg_env(shell->list_cmd->arg[1]) != 0)
@@ -89,8 +89,11 @@ void	fonction_unset(t_shell *shell)
 		printf("unset: '%s' : not a valid identifier\n", \
 				shell->list_cmd->arg[1]);
 	}
-	while (shell->list_cmd->arg[++i])
+	while (shell->list_cmd->arg[i])
+	{
 		delete_env(shell, shell->list_cmd->arg[i]);
+		i++;
+	}
 }
 
 void	fonction_pwd(t_shell *shell)

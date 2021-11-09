@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 11:01:49 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/09 11:02:15 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/09 19:26:35 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,13 @@ void	ft_path_cmd(t_shell *shell)
 	int			i;
 	t_list_cmd	*tmp_lst;
 	char		**tab_path;
+	char		*str;
 
 	tmp_lst = shell->list_cmd;
-	tab_path = ft_split(ft_get_env(shell, "PATH"), ':');
+	str = ft_get_env(shell, "PATH");
+	if (!str)
+		return ;
+	tab_path = ft_split(str, ':');
 	i = 0;
 	while (tmp_lst)
 	{
