@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mrochet <mrochet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 11:01:23 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/09 19:19:01 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/09 19:35:46 by mrochet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	main(int ac, char **av, char **env)
 	shell = ft_calloc(sizeof(t_shell), 1);
 	init_env(env, shell);
 	ac = 0;
+	dprintf(1, "C'EST DE LA MERDE\n");
 	while (!shell->str_cmd || ft_strncmp(shell->str_cmd, "exit", 4))
 	{
 		shell->prompt = recup_prompt();
