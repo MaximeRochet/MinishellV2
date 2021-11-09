@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:50:58 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/09 15:20:12 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/09 16:03:32 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ typedef struct s_shell
 	int			*pids;
 	int			quit;
 	int			ret_value;
-	int			false_ret_value;
-	char		*mssg_erreur;
 	char		**tab_env;	
 
 	t_list_cmd	*list_cmd;
@@ -166,6 +164,7 @@ void		fonction_cd_exit(t_shell *shell);
 
 //FREE
 void		ft_free(char **s);
+void		free_shell(t_shell *shell);
 
 //HEREDOC
 void		here_doc(char *s);

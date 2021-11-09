@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 11:02:38 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/09 11:02:39 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/09 15:26:41 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,11 @@ int	parsing(t_shell *shell)
 	if (ft_check_variable(shell, 0) == -1)
 		return (-1);
 	shell->str_cmd = ft_replace_pipe_str(shell->str_cmd, '|');
+	if (shell->str_cmd[0] == '\200')
+	{
+		printf("syntax error near unexpected token `|'\n");
+		return (-1);
+	}
 	str_split = ft_split(shell->str_cmd, '\200');
 	ft_split_arg_str(shell, str_split);
 	ft_free(str_split);

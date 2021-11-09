@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 11:01:23 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/09 15:19:34 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/09 18:04:31 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_exit(t_shell *shell)
 		return (0);
 	}
 	tab = ft_split(shell->str_cmd, ' ');
-	free(shell->str_cmd);
+	free_shell(shell);
 	printf("exit\n");
 	if (tab[1])
 	{
@@ -39,12 +39,11 @@ int	ft_exit(t_shell *shell)
 	return (0);
 }
 
-void	main_next(t_shell *shell, int ac)
+void	main_next(t_shell *shell, int *ac)
 {
-	shell->ret_value = ac;
+	shell->ret_value = *ac;
 	execution(shell);
-	ac = shell->ret_value;
-	shell->ret_value = 0;
+	*ac = shell->ret_value;
 }
 
 int	main(int ac, char **av, char **env)
@@ -68,9 +67,9 @@ int	main(int ac, char **av, char **env)
 		{	
 			add_history(shell->str_cmd);
 			if (parsing(shell) == 0 && shell->quit == 0)
-				main_next(shell, ac);
+				main_next(shell, &ac);
 			shell->list_cmd = NULL;
 		}
 	}
-	return (ft_exit(shell));
+	exit(ft_exit(shell));
 }
