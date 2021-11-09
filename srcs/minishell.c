@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 11:01:23 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/09 11:19:00 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/09 14:52:17 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,17 @@ int	ft_exit(t_shell *shell)
 	}
 	tab = ft_split(shell->str_cmd, ' ');
 	free(shell->str_cmd);
+	printf("exit\n");
 	if (tab[1])
 	{
-		printf("exit\n");
 		while (ft_isalpha(tab[1][i]))
 			i++;
 		if (!ft_isdigit(tab[1][i]))
 			printf("exit: %s: numeric argument required\n", tab[1]);
-		return (0);
+		else 		
+			return (ft_atoi(tab[1]) % 256);
+		return (255);
 	}
-	printf("exit\n");
 	return (0);
 }
 

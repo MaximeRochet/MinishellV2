@@ -6,7 +6,7 @@
 /*   By: cmasse <cmasse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 11:37:52 by cmasse            #+#    #+#             */
-/*   Updated: 2021/11/09 11:58:41 by cmasse           ###   ########.fr       */
+/*   Updated: 2021/11/09 14:43:10 by cmasse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,14 @@ int	init_dup_file(t_shell *shell)
 
 int	find_function(t_shell *shell)
 {
-	t_fonc	tab_f[7];
-	int		i;
-	char	*cmd;
-
-	tab_f = { \
+	t_fonc tab_f[] = { \
 	{"cd", &fonction_cd}, {"echo", &fonction_echo}, \
 	{"env", &fonction_env}, {"export", &fonction_export}, \
 	{"pwd", &fonction_pwd}, {"unset", &fonction_unset}, \
 	{"execve", &fonction_execve}};
+	int		i;
+	char	*cmd;
+
 	init_dup_file(shell);
 	cmd = shell->list_cmd->arg[0];
 	i = (shell->list_cmd->redir_out > 0 || shell->list_cmd->redir_in > 0) * 6;
